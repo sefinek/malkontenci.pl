@@ -1,0 +1,22 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'>
+	<defs>
+		<mask id='gap'>
+			<rect width='512' height='512' fill='white'/>
+			<circle cx='256' cy='256' r='144' fill='black'/>
+		</mask>
+	</defs>
+	<g fill='#b3453f' mask='url(#gap)'>
+		<rect x='168' y='24' width='176' height='464' rx='30'/>
+		<rect x='24' y='168' width='464' height='176' rx='30'/>
+	</g>
+	
+	<circle cx='256' cy='256' r='126' fill='#ece7e0'/>
+	<g stroke='#241f1a' stroke-width='22' stroke-linecap='round' fill='none'>
+		<path d='M 189 200 L 240 227'/>
+		<path d='M 323 200 L 272 227'/>
+		<path d='M 198 326 Q 256 276 314 326'/>
+	</g>
+	<g fill='#241f1a'>
+		<circle cx='210' cy='252' r='17'/>
+		<circle cx='302' cy='252' r='17'/>
+	</g></svg>

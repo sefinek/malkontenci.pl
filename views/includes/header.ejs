@@ -11,6 +11,9 @@
 	if (locals.noindex) { %><meta name="robots" content="noindex, nofollow"><% }
 	if (locals.canonical) { %><link rel="canonical" href="<%= domain %><%= _basePath %>"><% } %>
 	<meta name="theme-color" content="#161513">
+	<link rel="icon" href="/favicon.ico" sizes="48x48">
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website">
@@ -50,7 +53,7 @@
 <audio id="bg-music" src="/sound/oblivion-harvest-dawn.mp3" autoplay muted preload="auto"></audio>
 
 <header>
-	<a id="logo" class="logo" href="/" aria-label="Malkontenci.pl - strona główna">MALKONTENCI<span>.PL</span></a>
+	<a id="logo" class="logo" href="/" aria-label="Malkontenci.pl - strona główna"><img class="logo-icon" src="/images/brand/icon.svg" alt="" width="42" height="42">MALKONTENCI<span>.PL</span></a>
 	<nav class="header-actions" aria-label="Menu główne">
 		<a class="nav-link" href="/moje-certyfikaty">Moje certyfikaty</a>
 		<div class="sound-toggle">
