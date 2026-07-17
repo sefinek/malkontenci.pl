@@ -1,0 +1,37 @@
+{
+  "name": "malkontenci.pl",
+  "version": "1.0.0",
+  "homepage": "https://malkontenci.pl",
+  "bugs": {
+    "url": "https://github.com/sefinek/malkontenci.pl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sefinek/malkontenci.pl.git"
+  },
+  "license": "MIT",
+  "author": "Sefinek <contact@sefinek.net> (https://sefinek.net)",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "m": "ncu -u && npm install && npm update",
+    "pull": "git pull origin main",
+    "update": "npm run pull && npm ci --omit=dev && pm2 restart mki"
+  },
+  "dependencies": {
+    "connect-redis": "^9.0.0",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.6.0",
+    "express-session": "^1.19.0",
+    "express-timeout-handler": "^2.2.2",
+    "helmet": "^8.3.0",
+    "morgan": "^1.11.0",
+    "redis": "^6.1.0",
+    "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "globals": "^17.7.0"
+  }
+}

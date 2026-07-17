@@ -1,0 +1,28 @@
+<%- include('./includes/header.ejs', {
+  title: 'Moje certyfikaty - malkontenci.pl',
+  description: 'Twoje certyfikaty ukończenia testu malkontenta zapisane w tej przeglądarce.',
+  keywords: 'certyfikat malkontenta, wynik testu malkontenta',
+  noindex: true,
+  canonical: '/moje-certyfikaty',
+  css: 'style',
+  page: 'certificates'
+}) %>
+
+<main>
+  <section class="certs-section">
+    <div class="certs-heading">
+      <span class="section-kicker">Twoja dokumentacja</span>
+      <h1>Moje certyfikaty</h1>
+      <p class="section-note">Dokumenty generowane po każdej ukończonej diagnozie. Zapisane wyłącznie w tej przeglądarce, nikt poza Tobą ich nie widzi. Szkoda.</p>
+    </div>
+
+    <div id="certs-empty" class="certs-empty hidden">
+      <p>Nie masz jeszcze żadnego certyfikatu.</p>
+      <a href="/test" class="btn-primary">Przejdź diagnozę →</a>
+    </div>
+
+    <div id="certs-grid" class="certs-grid"></div>
+  </section>
+</main>
+
+<%- include('./includes/footer.ejs', { scripts: ['/js/certificates.js'] }) %>

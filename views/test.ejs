@@ -1,0 +1,85 @@
+<%- include('./includes/header.ejs', {
+  title: 'Test czy jesteś malkontentem - Krajowa poradnia antyfrustracyjna',
+  description: 'Przejdź test i sprawdź, jakim typem malkontenta jesteś.',
+  keywords: 'test malkontenta, test osobowości, typ malkontenta, poziom frustracji',
+  canonical: '/test',
+  css: 'style',
+  page: 'test'
+}) %>
+
+<main>
+  <div id="view-quiz" class="hidden">
+    <section class="quiz-section">
+      <div class="quiz-header">
+        <span>PYTANIE <span id="question-number"></span> / <span id="total-questions"></span></span>
+        <span id="progress-label"></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="quiz-question">
+        <h2 id="quiz-question"></h2>
+        <div class="answers" id="answers"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="view-result" class="hidden">
+    <section class="result-section">
+      <div class="cert-image-status" id="cert-image-status">Oczekiwanie na JavaScript...</div>
+      <div class="cert-images-row">
+        <div class="cert-image-wrap hidden" id="cert-image-wrap">
+        <img id="cert-image" alt="Wygenerowany certyfikat" decoding="async">
+        </div>
+
+        <div class="cert-image-wrap hidden" id="referral-image-wrap">
+          <div class="cert-image-label">Dodatkowo otrzymujesz skierowanie do Choroszczy</div>
+        <img id="referral-image" alt="Skierowanie do Choroszczy" decoding="async">
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button id="copy-btn" class="btn-outline wide" type="button">Skopiuj wynik</button>
+        <button id="download-btn" class="btn-outline wide hidden" type="button">Pobierz certyfikat</button>
+        <button id="download-referral-btn" class="btn-outline wide hidden" type="button">Pobierz skierowanie</button>
+        <button id="print-btn" class="btn-outline wide hidden" type="button">Drukuj</button>
+        <button id="restart-btn" class="btn-primary small" type="button">Powtórz diagnozę</button>
+      </div>
+      <div class="cert-image-link"><a class="nav-link" href="/moje-certyfikaty">Wyświetl wszystkie moje certyfikaty →</a></div>
+
+      <div class="result-extras">
+        <div class="pet-section hidden" id="pet-section">
+          <div class="pet-question" id="pet-question"></div>
+          <div class="answers" id="pet-answers"></div>
+          <p class="pet-ack hidden" id="pet-ack">Dziękujemy za odpowiedź.</p>
+          <div class="branch-block hidden" id="branch-block">
+            <p id="branch-text" class="branch-text"></p>
+            <p id="branch-phone" class="branch-phone"></p>
+            <div class="branch-actions" id="branch-actions">
+              <button id="branch-yes-btn" class="btn-primary small" type="button">Tak</button>
+              <button id="branch-no-btn" class="btn-outline wide" type="button">Nie</button>
+            </div>
+          <video id="branch-video" class="branch-video hidden" controls playsinline preload="none"></video>
+          </div>
+        </div>
+
+      <video id="result-media" class="result-media hidden" controls playsinline preload="none"></video>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal-overlay" id="nick-modal">
+    <div class="modal">
+      <div class="modal-kicker">Zanim zaczniemy</div>
+      <h3>Jak mamy się do Ciebie zwracać?</h3>
+      <p>Podaj swoje imię lub nazwę użytkownika. Informacja ta posłuży do wygenerowania certyfikatu (obraz jpg). W ostateczności wystawiamy również skierowanie do Choroszczy. Podana nazwa zostanie zapamiętana w tej przeglądarce. Po ukończeniu testu nie będzie dalej przetwarzana przez serwer. Nie podawaj tutaj swoich danych osobowych. Powodzenia!</p>
+      <input type="text" id="nick-input" placeholder="np. HiVeR" maxlength="24">
+      <div class="modal-actions">
+        <a href="/" class="btn-ghost">Anuluj</a>
+        <button id="nick-confirm" class="btn-primary modal-confirm" type="button">Rozpocznij</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('./includes/footer.ejs', { scripts: ['/js/test.js'] }) %>

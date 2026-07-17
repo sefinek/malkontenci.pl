@@ -1,0 +1,18 @@
+<%- include('./includes/header.ejs', {
+	title: `Błąd ${status}: malkontenci.pl`,
+	description: 'Wystąpił błąd podczas ładowania strony malkontenci.pl.',
+	noindex: true,
+	css: 'style',
+	page: 'error'
+}) %>
+
+<main>
+	<section class="error-section">
+		<div class="ticket">Błąd procedury</div>
+		<h1><%= status %></h1>
+		<p><%= message %></p>
+		<a href="/" class="btn-primary">Strona główna</a>
+	</section>
+</main>
+
+<%- include('./includes/footer.ejs') %>

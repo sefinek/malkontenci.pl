@@ -1,0 +1,163 @@
+<%- include('./includes/header.ejs', {
+  title: 'Malkontenci.pl - Czy jesteś malkontentem? Zrób test',
+  description: 'Sprawdź, czy jesteś malkontentem. 20 pytań, 5 diagnoz, zero litości. Krajowa poradnia antyfrustracyjna.',
+  keywords: 'malkontent, malkontenci, test malkontenta, test malkontenci.pl, czy jestem malkontentem',
+  canonical: '/',
+  css: 'style',
+  page: 'home'
+}) %>
+
+<main>
+  <section class="hero view">
+    <div class="hero-copy">
+      <% if (dla) { %>
+        <h1>Wygląda na to, że <%= dla %><br>jest malkontentem</h1>
+        <p class="sub1">Podobno przechodzisz ostatnio trudny okres. Odpowiedz na serię krótkich pytań. Spróbujemy cię wyleczyć.</p>
+        <p class="sub2">Doskonale cię rozumiemy <%= dla %>, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
+      <% } else { %>
+        <h1>Wygląda na to, że ktoś powiedział ci,<br>że jesteś malkontentem</h1>
+        <p class="sub1">Przejdź test, a następnie spróbujemy cię wyleczyć.</p>
+        <p class="sub2">Rozumiemy, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
+      <% } %>
+      <a id="start-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeURIComponent(dla)}` : '' %>">Rozpocznij diagnozę</a>
+
+      <div class="share-box">
+        <div class="share-box-label">Podeślij tę stronę innemu malkontentowi</div>
+        <div class="share-row">
+          <input type="text" id="share-input" placeholder="Imię lub nick malkontenta" maxlength="24">
+          <button id="share-btn" class="btn-outline" type="button">Generuj link</button>
+        </div>
+        <div class="share-link" id="share-link"></div>
+      </div>
+    </div>
+
+    <div class="hero-card-wrap">
+      <div class="hero-card">
+        <div class="hero-card-kicker">Karta zgłoszenia</div>
+        <div class="hero-card-ticket">#<span id="ticket-number"></span></div>
+        <div class="hero-card-facts">
+          <div>Status: <span>niepokojący</span></div>
+          <div>Diagnoz do wyboru: <span>5</span></div>
+          <div>Pytań w badaniu: <span>20</span></div>
+          <div>Czas badania: <span>ok. 4 minuty</span></div>
+          <div>Wynik: <span>natychmiastowy</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro-cards view">
+    <div class="card-grid cols-3">
+      <div class="card">
+        <div class="card-title">01. Diagnoza</div>
+        <div class="card-body">20 realistycznych sytuacji z codzienności, w losowej kolejności. Oceniamy poziom twojej frustracji reakcja po reakcji.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">02. Klasyfikacja</div>
+        <div class="card-body">Na podstawie odpowiedzi przypisujemy ci jeden z 5 udokumentowanych typów malkontenta.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">03. Leczenie</div>
+        <div class="card-body">Otrzymujesz certyfikat oraz zalecaną terapię. W skrajnych przypadkach wystawiamy także skierowanie do placówki partnerskiej w Choroszczy.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section view">
+    <span class="section-kicker">Definicja kliniczna</span>
+    <div class="definition-block">
+      <div class="definition-term">malkontent <span class="pos">rzeczownik, rodzaj męski</span></div>
+      <div class="definition-pron">[mal-kon-tent], od francuskiego malcontent: "niezadowolony", choć u nas raczej "permanentnie rozczarowany rzeczywistością".</div>
+      <div class="definition-body">
+        <p>Malkontent nie narzeka. Prowadzi bieżącą kontrolę jakości rzeczywistości i odnotowuje każdą wykrytą usterkę. Zwykle głośno, kilkukrotnie i w obecności osób, które nie miały z nią nic wspólnego.</p>
+        <p>Malkontent zawsze znajdzie powód do narzekania. Jak nie ceny, to pogoda. Jak nie pogoda, to ludzie. A kiedy ktoś proponuje rozwiązanie, ono też okazuje się złe. Tacy ludzie zwykle źle znoszą również krytykę. Uwielbiają być cudzymi mentorami.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section view">
+    <span class="section-kicker">Typowe zachowania</span>
+    <div class="symptom-box">
+      <div class="symptom-grid">
+        <div class="symptom"><span>＋</span>Unikanie odpowiedzi, gdy ktoś przedstawia konkretne argumenty.</div>
+        <div class="symptom"><span>＋</span>Łatwe dostrzeganie błędów innych, przy jednoczesnym pomijaniu własnych.</div>
+        <div class="symptom"><span>＋</span>Skupianie się na wadach, nawet gdy coś działa prawidłowo.</div>
+        <div class="symptom"><span>＋</span>Odrzucanie proponowanych rozwiązań bez wskazywania lepszej alternatywy.</div>
+        <div class="symptom"><span>＋</span>Traktowanie własnej opinii jak niepodważalnego faktu.</div>
+        <div class="symptom"><span>＋</span>Duża wrażliwość na krytykę i odmienne zdanie.</div>
+        <div class="symptom"><span>＋</span>Idealizowanie przeszłości i przekonanie, że dawniej wszystko było lepsze.</div>
+        <div class="symptom"><span>＋</span>Wielokrotne powtarzanie tych samych skarg różnym osobom.</div>
+        <div class="symptom"><span>＋</span>Pomniejszanie sukcesów i pozytywnych zmian.</div>
+        <div class="symptom"><span>＋</span>Zakładanie porażki jeszcze przed podjęciem próby.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section centered view">
+    <span class="section-kicker">Wyniki badań</span>
+    <p class="section-note">Dane zebrano podczas rozmów z osobami, które stanowczo odmawiały odnoszenia się do argumentów. Metodologia została przez nie uznana za beznadziejną.</p>
+    <div class="card-grid cols-4">
+      <div class="stat-card">
+        <div class="stat-value">92%</div>
+        <div class="stat-label">badanych uważa swoje narzekanie za realizm</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">4,7</div>
+        <div class="stat-label">rzeczy dziennie, które kiedyś były lepsze</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">81%</div>
+        <div class="stat-label">proponowanych rozwiązań uznano za gorsze od problemu</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">przypadków przyznania się do przesady</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-section view">
+    <div class="quote-text">"Mogłeś podać innego malkontenta, ale przypier... się akurat do mnie. Teraz udajesz, że to był tylko przykład. Kończę tę dyskusję, bo do niczego nie prowadzi. Miłego dnia."</div>
+    <div class="quote-author">relacja anonimowego pacjenta, który niestety nadal jest malkontentem</div>
+  </section>
+
+  <section class="section proof view">
+    <div class="proof-photo">
+      <img src="/images/certyfikat-w-ramce.jpg" alt="Wydrukowany i oprawiony w ramkę certyfikat diagnostyczny Malkontenta Okazjonalnego na półce pacjenta" width="1200" height="1600" loading="lazy" decoding="async">
+    </div>
+    <div class="proof-copy">
+      <span class="section-kicker">Skuteczność terapii</span>
+      <h3>Pacjenci oprawiają nasze diagnozy w ramki</h3>
+      <p>Na zdjęciu: certyfikat pacjenta Jakuba (Malkontent Okazjonalny, 30/100 pkt frustracji) wyeksponowany na honorowym miejscu, między statuetką Oscara a wiatrówką. Dokument został wydrukowany, oprawiony i postawiony dobrowolnie.</p>
+      <p>Krajowa Poradnia Antyfrustracyjna nie ponosi odpowiedzialności za dumę pacjentów z własnych wyników. Odnotowujemy jednak, że żaden z nich nie złożył reklamacji. Jeszcze.</p>
+    </div>
+  </section>
+
+  <section class="section centered wide view">
+    <span class="section-kicker">Grupy wsparcia</span>
+    <p class="section-note">Nie musisz zmagać się z tym sam. Rozumiemy doskonale, że życie w samotności bywa przytłaczające. Poniżej oficjalnie rekomendowane punkty spotkań (frekwencja niska, opór wysoki).</p>
+    <div class="card-grid cols-2">
+      <div class="support-card">
+        <div class="support-kicker">Grupa online</div>
+        <div class="support-title">Serwer Discord "Jomesh MeshCore"</div>
+        <div class="support-meta">Toruń, Polska · dostęp całodobowy</div>
+        <p class="support-body">Kółko wzajemnej adoracji, które zna się na wszystkim i na niczym. Każdy jest ekspertem, dopóki nie trzeba odpowiedzieć na konkretny argument. Nieważne, czy błąd wskaże fachowiec, czy dwunastolatek. Problemem zawsze okazuje się osoba, wskaże nieprawidłowość. Każda krytyka jest traktowana jak atak, a własna opinia jak niepodważalny fakt. Za długą wiadomość można dostać bana.</p>
+      </div>
+      <div class="support-card">
+        <div class="support-kicker">Poradnia stacjonarna</div>
+        <div class="support-title">DPS "Pod Zrzędliwym Bocianem"</div>
+        <div class="support-meta">oddział dla malkontentów, Bydgoszcz</div>
+        <p class="support-body">Całodobowa opieka nad osobami, którym od lat nic nie odpowiada. Pensjonariusze wspólnie oceniają posiłki, pogodę, personel i siebie nawzajem. Terapia kończy się, gdy pacjent przez cały dzień nie zgłosi żadnej uwagi. Dotychczas nie odnotowano takiego przypadku.</p>
+      </div>
+    </div>
+    <div class="support-footnote">Jeżeli obie grupy odmówią dalszej współpracy, wystawimy skierowanie do placówki partnerskiej w Choroszczy. Prosimy o natychmiastowy kontakt, ponieważ miejsca są ograniczone.</div>
+  </section>
+
+  <section class="cta-section view">
+    <h3>Nadal uważasz, że problem dotyczy innych?</h3>
+    <p>To typowe. Test zajmie około 4 minut i da ci wynik, z którym prawdopodobnie również się nie zgodzisz.</p>
+    <a id="cta-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeURIComponent(dla)}` : '' %>">Rozpocznij badanie →</a>
+  </section>
+</main>
+
+<%- include('./includes/footer.ejs', { disclaimer: true, scripts: ['/js/index.js'] }) %>

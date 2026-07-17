@@ -1,0 +1,64 @@
+<!DOCTYPE html> <!-- Copyright 2026 © by Sefinek. All Rights Reserved. --> <% const _basePath = locals.canonical || '/'; %>
+<html lang="pl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= title %></title>
+
+	<!-- Primary meta -->
+	<% if (locals.description) { %><meta name="description" content="<%= description %>"><% }
+	if (locals.keywords) { %><meta name="keywords" content="<%= keywords %>"><% }
+	if (locals.noindex) { %><meta name="robots" content="noindex, nofollow"><% }
+	if (locals.canonical) { %><link rel="canonical" href="<%= domain %><%= _basePath %>"><% } %>
+	<meta name="theme-color" content="#161413">
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="malkontenci.pl">
+	<meta property="og:locale" content="pl_PL">
+	<meta property="og:title" content="<%= title %>">
+	<% if (locals.description) { %><meta property="og:description" content="<%= description %>"><% } %>
+	<meta property="og:url" content="<%= domain %><%= _basePath %>">
+
+	<!-- Twitter / X Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="<%= title %>">
+	<% if (locals.description) { %><meta name="twitter:description" content="<%= description %>"><% } %>
+
+	<!-- JavaScript -->
+	<script src="https://cdn.sefinek.net/js/progressbar.js"></script>
+
+	<!-- Stylesheets -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&amp;family=Work+Sans:wght@400;500;600;700&amp;display=swap">
+	<% if (locals.css) { (Array.isArray(css) ? css : [css]).forEach(c => { %><link rel="stylesheet" href="/css/<%= c %>.css" data-page-css><% }) } %>
+
+	<!-- schema.org -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		"name": "malkontenci.pl",
+		"url": "<%= domain %>/",
+		"description": "Test diagnostyczny sprawdzający, czy jesteś malkontentem. Po ukończeniu testu otrzymasz także certyfikat. Krajowa Poradnia Antyfrustracyjna.",
+		"inLanguage": "pl-PL"
+	}
+	</script>
+</head>
+<body data-page="<%= locals.page || '' %>">
+<audio id="bg-music" src="/sound/oblivion-harvest-dawn.mp3" autoplay muted preload="auto"></audio>
+
+<header>
+	<a id="logo" class="logo" href="/" aria-label="Malkontenci.pl - strona główna">MALKONTENCI<span>.PL</span></a>
+	<nav class="header-actions" aria-label="Menu główne">
+		<a class="nav-link" href="/moje-certyfikaty">Moje certyfikaty</a>
+		<div class="sound-toggle">
+			<button id="sound-btn" type="button">
+				<span id="sound-icon">🔈</span>
+				<span id="sound-label">Włącz muzykę</span>
+			</button>
+		</div>
+	</nav>
+	<div class="clinic-name">Krajowa Poradnia Antyfrustracyjna</div>
+</header>
