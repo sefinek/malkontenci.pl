@@ -9,7 +9,7 @@ body {
               radial-gradient(ellipse 90% 60% at 100% 100%, rgba(179, 69, 63, .05) 0%, transparent 60%);
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   color: #ede1c9;
   font-family: 'Work Sans', sans-serif;
 }
@@ -37,13 +37,10 @@ header {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 12px 48px;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 20;
   border-bottom: 1px solid rgba(255, 255, 255, .06);
-  background: rgba(19, 17, 16, .72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(19, 17, 16, .88);
 }
 
 .logo {
@@ -1138,6 +1135,12 @@ footer {
   }
 }
 
+@media (max-width: 1024px) {
+  .clinic-name {
+    display: none;
+  }
+}
+
 @media (max-width: 720px) {
   .card-grid.cols-3,
   .card-grid.cols-4,
@@ -1152,17 +1155,48 @@ footer {
     margin: 0 auto;
   }
 
+  .hero-card,
+  .proof-photo img {
+    transform: none;
+  }
+
+  .hero {
+    padding: 20px 20px 48px;
+    gap: 40px;
+  }
+
   header {
-    padding: 12px 24px;
+    padding: 10px 16px;
     grid-template-columns: 1fr;
     justify-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   .logo,
-  .clinic-name,
   .header-actions {
     justify-self: center;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    margin-right: 8px;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .nav-link,
+  .sound-toggle button {
+    padding: 7px 12px;
+    font-size: 12px;
   }
 
   .definition-block {
