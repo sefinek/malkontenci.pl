@@ -1139,11 +1139,22 @@ footer {
   .clinic-name {
     display: none;
   }
+
+  header {
+    padding: 12px 24px;
+  }
+
+  .hero {
+    padding: 5vh 32px 48px;
+  }
+
+  .card-grid.cols-4 {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 720px) {
   .card-grid.cols-3,
-  .card-grid.cols-4,
   .card-grid.cols-2,
   .symptom-grid,
   .section.proof {
@@ -1201,6 +1212,120 @@ footer {
 
   .definition-block {
     padding-left: 20px;
+  }
+
+  .hero-copy h1 br {
+    display: none;
+  }
+
+  .hero-copy p.sub2 {
+    margin-bottom: 32px;
+  }
+
+  .section {
+    margin-top: 64px;
+    padding: 0 20px;
+  }
+
+  .intro-cards {
+    margin-top: 48px;
+    padding: 0 20px;
+  }
+
+  .card-grid.cols-3 {
+    margin-top: 40px;
+  }
+
+  .card {
+    padding: 26px 22px;
+  }
+
+  .symptom-box {
+    padding: 26px 20px;
+  }
+
+  .definition-term {
+    font-size: 24px;
+  }
+
+  .quote-section {
+    margin-top: 64px;
+    padding: 0 20px;
+  }
+
+  .quote-text {
+    font-size: 19px;
+  }
+
+  .cta-section {
+    margin-top: 64px;
+    padding: 0 20px 20px;
+  }
+
+  .quiz-section {
+    padding: 0 20px 80px;
+  }
+
+  .result-section {
+    padding: 0 20px 90px;
+  }
+
+  .certs-section {
+    padding: 0 20px 90px;
+  }
+
+  .modal {
+    padding: 30px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-grid.cols-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero .btn-primary,
+  .cta-section .btn-primary {
+    display: block;
+    text-align: center;
+    padding: 16px 24px;
+  }
+
+  .share-box {
+    padding: 18px 16px;
+  }
+
+  .share-row {
+    flex-direction: column;
+  }
+
+  .share-row .btn-outline {
+    padding: 12px 16px;
+  }
+
+  .answer-btn {
+    padding: 15px 16px;
+    font-size: 15px;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions button {
+    width: 100%;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions .btn-ghost {
+    text-align: center;
+  }
+
+  .modal-actions .btn-primary.modal-confirm {
+    width: 100%;
   }
 }
 
