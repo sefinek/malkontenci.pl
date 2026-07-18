@@ -28,7 +28,7 @@ cd malkontenci.pl
 npm i
 ```
 
-Utwórz plik `.env` w katalogu projektu na podstawie templatki `.env.default`.
+Utwórz plik `.env` w katalogu projektu na podstawie szablonu `.env.example`.
 
 Następnie uruchom aplikację:
 ```bash

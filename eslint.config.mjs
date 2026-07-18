@@ -2,16 +2,14 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-	{ ignores: ['node_modules', '**/*.min.js', '**/*bundle*', 'build/**', 'dist/**', 'services/translations/**'] },
+	{ ignores: ['node_modules', '**/*.min.js', '**/*bundle*', 'build/**', 'dist/**'] },
 	js.configs.recommended,
 	{
 		languageOptions: {
 			ecmaVersion: 'latest',
 			globals: {
 				...globals.node,
-				...globals.mongo,
 				...globals.browser,
-				Chart: 'readonly',
 			},
 		},
 		rules: {
