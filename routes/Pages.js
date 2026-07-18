@@ -7,5 +7,6 @@ router.get('/', (req, res) => {
 
 router.get('/test', (req, res) => res.render('test.ejs'));
 router.get('/moje-certyfikaty', (req, res) => res.render('certificates.ejs'));
+router.get('/uznania', (req, res) => res.render('credits.ejs'));
 
 module.exports = router;
