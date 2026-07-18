@@ -439,7 +439,7 @@ const PET_QUESTION = {
 			'branch': {
 				'text': 'Przykro nam. Wstępna diagnoza wskazuje na poważną usterkę kota. Urządzenie może nie reagować na swoje imię, bez powodu patrzeć w ścianę, uruchamiać się o trzeciej nad ranem albo odmawiać współpracy pomimo pełnej miski. Spróbuj ponownego uruchomienia, aktualizacji oprogramowania lub potrząśnięcia opakowaniem z karmą. Jeżeli problem nadal występuje, skorzystaj z poradnika naprawczego autorstwa WVW Productions. Czy chcesz do niego przejść?',
 				'phone': 'Linia wsparcia technicznego: 0118 999 881 999 119 7253',
-				'video': '/video/how-to-fix-a-cat.webm',
+				'video': '/video/lU5a3THsSgc.webm',
 				'noAck': 'W takim razie przepraszamy za niedogodności.',
 			},
 		},
