@@ -7,8 +7,6 @@
 	const loadedScripts = new Set(Array.from(document.querySelectorAll('script[src]'), s => s.src));
 	let navToken = 0;
 
-	history.scrollRestoration = 'manual';
-
 	const cacheKey = url => url.pathname + url.search;
 
 	const getCached = key => {
@@ -131,11 +129,7 @@
 		if (init) init();
 	};
 
-	const restoreScroll = (url, scrollY) => {
-		if (scrollY !== null) {
-			window.scrollTo({ top: scrollY, behavior: 'instant' });
-			return;
-		}
+	const resetScroll = url => {
 		const anchor = url.hash && document.getElementById(url.hash.slice(1));
 		if (anchor) {
 			anchor.scrollIntoView();
@@ -144,7 +138,7 @@
 		}
 	};
 
-	const navigate = async (url, { push = true, scrollY = null } = {}) => {
+	const navigate = async (url, { push = true, resetPosition = true } = {}) => {
 		const token = ++navToken;
 		try {
 			const html = await fetchPage(url);
@@ -153,13 +147,10 @@
 			if (!doc.querySelector('main')) throw new Error('Invalid document');
 			await loadScripts(doc);
 			if (token !== navToken) return;
-			if (push) {
-				history.replaceState({ scrollY: window.scrollY }, '', location.href);
-				history.pushState({ scrollY: 0 }, '', url.href);
-			}
+			if (push) history.pushState(null, '', url.href);
 			applyDocument(doc);
 			runPageInit();
-			restoreScroll(url, scrollY);
+			if (resetPosition) resetScroll(url);
 		} catch {
 			if (token === navToken) window.location.href = url.href;
 		}
@@ -186,7 +177,7 @@
 			return;
 		}
 		e.preventDefault();
-		navigate(url);
+		void navigate(url);
 	});
 
 	const prefetch = e => {
@@ -198,19 +189,8 @@
 
 	document.addEventListener('mouseover', prefetch);
 	document.addEventListener('touchstart', prefetch, { passive: true });
-
-	window.addEventListener('popstate', e => {
-		navigate(new URL(location.href), { push: false, scrollY: (e.state && e.state.scrollY) || 0 });
-	});
-
-	window.addEventListener('pagehide', () => {
-		history.replaceState({ scrollY: window.scrollY }, '', location.href);
-	});
-
-	document.addEventListener('DOMContentLoaded', () => {
-		runPageInit();
-		if (history.state && history.state.scrollY) window.scrollTo(0, history.state.scrollY);
-	});
+	window.addEventListener('popstate', () => navigate(new URL(location.href), { push: false, resetPosition: false }));
+	document.addEventListener('DOMContentLoaded', () => runPageInit());
 
 	window.PageRouter = {
 		register: (page, init) => {

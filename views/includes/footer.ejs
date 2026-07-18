@@ -1,11 +1,30 @@
 <footer>
 	<% if (locals.disclaimer) { %>
-	<div class="disclaimer">Przed użyciem zapoznaj się z treścią strony. Nie stosować w przypadku nadwrażliwości na krytykę. Nagła poprawa nastroju może świadczyć o niewłaściwym użyciu. W takim przypadku skonsultuj się z najbliższym malkontentem i powtórz test.</div>
+		<div class="disclaimer">Przed użyciem zapoznaj się z treścią strony. Nie stosować w przypadku nadwrażliwości na krytykę. Nagła poprawa nastroju może świadczyć o niewłaściwym użyciu. W takim przypadku skonsultuj się z najbliższym malkontentem i powtórz test.</div>
 	<% } %>
-	<div class="footer-line">Krajowa Poradnia Antyfrustracyjna · diagnostyka bez znieczulenia · v<%= version %></div>
-	<div class="footer-line"><a href="/polityka-prywatnosci">Polityka prywatności</a> · <a href="/uznania">Uznania i źródła</a></div>
-	<div class="footer-line"><a href="https://sefinek.net/" target="_blank" rel="noopener">Sefinek</a> · <a href="https://blocklist.sefinek.net/" target="_blank" rel="noopener">Sefinek Blocklists</a> · <a href="https://sniffcat.com/" target="_blank" rel="noopener">SniffCat</a> · <a href="https://meshcorepolska.org/" target="_blank" rel="noopener">MeshCore Polska</a></div>
-	<div class="footer-line">Copyright 2026 &copy; by Sefinek. Wszelkie prawa zastrzeżone.</div>
+	<div class="footer-content">
+		<div class="footer-line footer-brand">Krajowa Poradnia Antyfrustracyjna <span aria-hidden="true">·</span> diagnostyka bez znieczulenia <span aria-hidden="true">·</span> v<%= version %></div>
+		<nav class="footer-nav" aria-label="Informacje o serwisie">
+			<a href="/polityka-prywatnosci">Polityka prywatności</a>
+			<span aria-hidden="true">·</span>
+			<a href="/uznania">Uznania i źródła</a>
+			<span aria-hidden="true">·</span>
+			<a href="https://github.com/sefinek/malkontenci.pl" target="_blank" rel="noopener">Kod źródłowy</a>
+		</nav>
+		<div class="footer-projects">
+			<span class="footer-label">Inne projekty:</span>
+			<nav class="footer-project-links" aria-label="Inne projekty Sefinka">
+				<a href="https://sefinek.net/" target="_blank" rel="noopener">Sefinek</a>
+				<span aria-hidden="true">·</span>
+				<a href="https://blocklist.sefinek.net/" target="_blank" rel="noopener">Sefinek Blocklists</a>
+				<span aria-hidden="true">·</span>
+				<a href="https://sniffcat.com/" target="_blank" rel="noopener">SniffCat</a>
+				<span aria-hidden="true">·</span>
+				<a href="https://meshcorepolska.org/" target="_blank" rel="noopener">MeshCore Polska</a>
+			</nav>
+		</div>
+		<div class="footer-line footer-copyright">Copyright 2026 &copy; by Sefinek.</div>
+	</div>
 </footer>
 
 <script>window.PageRouter = { register: (page, init) => { document.addEventListener('DOMContentLoaded', () => { if (document.body.dataset.page === page) init(); }); } };</script>

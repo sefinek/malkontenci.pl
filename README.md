@@ -35,7 +35,7 @@ Następnie uruchom aplikację:
 node index.js
 ```
 
-Serwis domyślnie wystartuje pod pod adresem http://127.0.0.1:8080.
+Serwis domyślnie wystartuje pod adresem http://127.0.0.1:8080.
 
 ## Struktura projektu
 ```text

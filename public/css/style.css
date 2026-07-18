@@ -2,6 +2,39 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #873a36 #12100f;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #12100f;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 3px solid #12100f;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #9d433e, #6f302d);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #bd514a, #873a36);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #c65a52;
+}
+
+::-webkit-scrollbar-corner {
+  background: #12100f;
+}
+
 body {
   margin: 0;
   background: #161413;
@@ -37,10 +70,14 @@ header {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 12px 48px;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
   border-bottom: 1px solid rgba(255, 255, 255, .06);
   background: rgba(19, 17, 16, .88);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
 }
 
 .logo {
@@ -84,7 +121,7 @@ header {
 
 .nav-link {
   display: inline-block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #c9847e;
   text-decoration: none;
@@ -110,7 +147,7 @@ header {
   border: 1px solid #4d4744;
   color: #c9847e;
   font-family: 'Work Sans', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: .03em;
   padding: 9px 16px;
@@ -262,7 +299,7 @@ header {
 .hero-card-facts {
   border-top: 1px dashed #3a3634;
   padding-top: 20px;
-  font-size: 13px;
+  font-size: 14px;
   color: #8f8983;
   line-height: 1.7;
 }
@@ -306,7 +343,7 @@ header {
   color: #e4ded4;
   font-family: 'Work Sans', sans-serif;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   padding: 11px 16px;
   border-radius: 6px;
 }
@@ -333,7 +370,7 @@ input[type="text"] {
 
 .share-link {
   margin-top: 12px;
-  font-size: 13px;
+  font-size: 14px;
   color: #8f8983;
   word-break: break-all;
   text-align: left;
@@ -533,7 +570,7 @@ input[type="text"] {
 }
 
 .stat-label {
-  font-size: 13px;
+  font-size: 14px;
   color: #8f8983;
   margin-top: 10px;
   line-height: 1.5;
@@ -593,7 +630,7 @@ input[type="text"] {
 }
 
 .quote-author {
-  font-size: 13px;
+  font-size: 14px;
   color: #7a746e;
   letter-spacing: .03em;
 }
@@ -611,7 +648,7 @@ input[type="text"] {
 .support-kicker {
   font-family: 'Cinzel', serif;
   color: #b3453f;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -626,7 +663,7 @@ input[type="text"] {
 }
 
 .support-meta {
-  font-size: 13px;
+  font-size: 14px;
   color: #8f8983;
   margin-bottom: 16px;
 }
@@ -641,7 +678,7 @@ input[type="text"] {
 .support-footnote {
   text-align: center;
   margin-top: 22px;
-  font-size: 13px;
+  font-size: 14px;
   color: #5c5650;
   letter-spacing: .02em;
 }
@@ -729,7 +766,7 @@ input[type="text"] {
 }
 
 .ticket {
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: #8a3835;
@@ -763,7 +800,7 @@ input[type="text"] {
 }
 
 .cert-card-date {
-  font-size: 13px;
+  font-size: 14px;
   color: #7a746e;
 }
 
@@ -776,7 +813,7 @@ input[type="text"] {
 .cert-card-actions button {
   flex: 1;
   padding: 10px 14px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .quiz-section {
@@ -884,7 +921,7 @@ input[type="text"] {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  font-size: 13px;
+  font-size: 14px;
   color: #8f8983;
   font-weight: 600;
   letter-spacing: .05em;
@@ -1034,6 +1071,50 @@ footer {
   letter-spacing: .04em;
 }
 
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  color: #6b645f;
+}
+
+.footer-nav,
+.footer-projects,
+.footer-project-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.footer-nav > span,
+.footer-project-links > span {
+  color: #4a4541;
+}
+
+.footer-projects {
+  gap: 5px;
+}
+
+.footer-label {
+  color: #625c57;
+}
+
+.footer-copyright {
+  margin-top: 5px;
+  color: #45413e;
+  font-size: 11px;
+}
+
 .credits-section {
   max-width: 960px;
   margin: 6vh auto 0;
@@ -1099,7 +1180,7 @@ footer {
 
 .credit-card p {
   margin: 0 0 11px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .credit-card p:last-child {
@@ -1120,7 +1201,7 @@ footer {
 
 .credits-notice strong {
   color: #d7cec3;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .credits-notice p {
@@ -1148,7 +1229,7 @@ footer {
 .privacy-content p,
 .privacy-content li {
   color: #948e87;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.75;
 }
 
@@ -1287,6 +1368,19 @@ footer {
 
   .privacy-content {
     padding: 24px 20px;
+  }
+
+  .footer-brand span {
+    display: none;
+  }
+
+  .footer-brand {
+    max-width: 290px;
+    line-height: 1.6;
+  }
+
+  .footer-projects {
+    flex-direction: column;
   }
 }
 
