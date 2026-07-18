@@ -1128,6 +1128,53 @@ footer {
   font-size: 12px;
 }
 
+.privacy-content {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 30px 34px;
+}
+
+.privacy-content h2 {
+  margin: 30px 0 10px;
+  color: #d7cec3;
+  font-family: 'Cinzel', serif;
+  font-size: 17px;
+}
+
+.privacy-content h2:first-child {
+  margin-top: 0;
+}
+
+.privacy-content p,
+.privacy-content li {
+  color: #948e87;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.privacy-content p {
+  margin: 0;
+}
+
+.privacy-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.privacy-content li + li {
+  margin-top: 7px;
+}
+
+.privacy-content code {
+  color: #c9bdb0;
+}
+
+.privacy-content .privacy-updated {
+  margin-top: 34px;
+  color: #6f6963;
+  font-size: 11px;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1236,6 +1283,10 @@ footer {
 
   .credits-grid {
     grid-template-columns: 1fr;
+  }
+
+  .privacy-content {
+    padding: 24px 20px;
   }
 }
 

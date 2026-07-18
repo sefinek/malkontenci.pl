@@ -17,4 +17,8 @@
         <loc>https://malkontenci.pl/uznania</loc>
         <priority>0.60</priority>
     </url>
+    <url>
+        <loc>https://malkontenci.pl/polityka-prywatnosci</loc>
+        <priority>0.50</priority>
+    </url>
 </urlset>

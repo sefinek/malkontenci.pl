@@ -1,0 +1,41 @@
+<%- include('./includes/header.ejs', {
+  title: 'Polityka prywatności - malkontenci.pl',
+  description: 'Informacje o prywatności, danych technicznych i pamięci przeglądarki w serwisie malkontenci.pl.',
+  canonical: '/polityka-prywatnosci',
+  css: 'style',
+  page: 'privacy'
+}) %>
+
+<main>
+  <section class="credits-section privacy-section">
+    <div class="credits-heading">
+      <h1>Polityka prywatności</h1>
+      <p>Krótko i konkretnie: co zapisuje serwis, po co to robi i jakie masz prawa.</p>
+    </div>
+
+    <div class="privacy-content credit-card">
+      <h2>Administrator i kontakt</h2>
+      <p>Administratorem serwisu malkontenci.pl jest Sefinek. W sprawach dotyczących prywatności napisz na <a href="mailto:contact@sefinek.net">contact@sefinek.net</a>.</p>
+
+      <h2>Jakie dane przetwarzamy?</h2>
+      <ul>
+        <li>Logi techniczne mogą zawierać adres IP, User-Agent, odwiedzony adres, referrer, status odpowiedzi i czas obsługi żądania. Nie zapisujemy treści formularza testu w logach.</li>
+        <li>Cookie sesyjne <code>mki.sid</code> służy do zabezpieczenia generowania certyfikatów i wygasa po 2 godzinach.</li>
+        <li>Pseudonim, numer zgłoszenia, postęp testu i certyfikaty są zapisywane lokalnie w pamięci Twojej przeglądarki. Możesz je usunąć, czyszcząc dane witryny.</li>
+      </ul>
+
+      <h2>Po co i jak długo?</h2>
+      <p>Dane techniczne przetwarzamy w celu działania serwisu, ochrony przed nadużyciami i diagnozowania błędów, na podstawie naszego prawnie uzasadnionego interesu. Logi przechowujemy tylko przez okres niezbędny do realizacji tych celów, zgodnie z rotacją logów serwera. Dane sesji są usuwane po jej wygaśnięciu, a dane w przeglądarce pozostają do czasu ich usunięcia przez użytkownika.</p>
+
+      <h2>Usługi zewnętrzne</h2>
+      <p>Serwis pobiera kroje pisma z Google Fonts oraz skrypt interfejsu z <code>cdn.sefinek.net</code>. Dostawcy tych zasobów mogą otrzymać podstawowe dane połączenia, w szczególności adres IP i User-Agent. Nie korzystamy z reklam ani narzędzi analitycznych śledzących użytkowników.</p>
+
+      <h2>Twoje prawa</h2>
+      <p>Możesz poprosić o dostęp do danych, ich sprostowanie, usunięcie, ograniczenie przetwarzania lub wnieść sprzeciw. Masz również prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych. Wynik testu ma charakter wyłącznie rozrywkowy i nie wywołuje skutków prawnych.</p>
+
+      <p class="privacy-updated">Ostatnia aktualizacja: 18 lipca 2026 r.</p>
+    </div>
+  </section>
+</main>
+
+<%- include('./includes/footer.ejs') %>

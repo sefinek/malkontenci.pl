@@ -1,0 +1,63 @@
+{
+  "name": "malkontenci.pl - Krajowa Poradnia Antyfrustracyjna",
+  "short_name": "Malkontenci",
+  "description": "Humorystyczny test sprawdzający, czy jesteś malkontentem, zakończony memicznym certyfikatem.",
+  "lang": "pl-PL",
+  "dir": "ltr",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#161413",
+  "theme_color": "#161513",
+  "categories": ["entertainment", "lifestyle"],
+  "icons": [
+    {
+      "src": "/images/brand/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/brand/icon-bg-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Rozpocznij test",
+      "short_name": "Test",
+      "description": "Rozpocznij diagnozę malkontenctwa.",
+      "url": "/test",
+      "icons": [
+        {
+          "src": "/images/brand/icon-512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Moje certyfikaty",
+      "short_name": "Certyfikaty",
+      "description": "Otwórz certyfikaty zapisane w tej przeglądarce.",
+      "url": "/moje-certyfikaty",
+      "icons": [
+        {
+          "src": "/images/brand/icon-512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
