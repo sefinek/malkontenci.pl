@@ -6,7 +6,7 @@
 		if (!name) return;
 		const url = new URL(window.location.href);
 		url.search = '';
-		url.searchParams.set('dla', name);
+		url.searchParams.set('dla', btoa(name));
 		const link = url.toString();
 		els.shareLink.textContent = link;
 		els.shareLink.classList.add('visible');
