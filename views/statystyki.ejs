@@ -1,0 +1,51 @@
+<%- include('./includes/header.ejs', {
+  title: 'Statystyki - malkontenci.pl',
+  description: 'Statystyki Krajowej Poradni Antyfrustracyjnej: liczba przeprowadzonych diagnoz, rozkład typów malkontenta i inne dane.',
+  keywords: 'statystyki malkontenci.pl, ile osób zrobiło test malkontenta',
+  canonical: '/statystyki',
+  css: 'statystyki',
+  page: 'stats'
+}) %>
+
+<main>
+  <section class="stats-section">
+    <div class="stats-heading">
+      <span class="section-kicker">Dane kliniczne</span>
+      <h1>Statystyki poradni</h1>
+      <p class="section-note">Liczby zbierane automatycznie po każdej ukończonej diagnozie. Metodologia niepodważalna, bo nasza.</p>
+    </div>
+
+    <div class="card-grid cols-4">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-total">–</div>
+        <div class="stat-label">wykonanych diagnoz łącznie</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-today">–</div>
+        <div class="stat-label">diagnoz dzisiaj</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-avg">–</div>
+        <div class="stat-label">średni wynik frustracji (pkt)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-record">–</div>
+        <div class="stat-label">rozstrzał wyników dzisiaj (min-max)</div>
+      </div>
+    </div>
+
+    <div class="stats-chart-block hidden" id="daily-chart-block">
+      <h2>Diagnozy w ostatnich 30 dniach</h2>
+      <div class="stats-chart" id="stats-chart"></div>
+    </div>
+
+    <div class="stats-chart-block">
+      <h2>Rozkład typów malkontenta</h2>
+      <div class="archetype-list" id="archetype-list"></div>
+    </div>
+
+    <p class="stats-footnote">Dane zbierane automatycznie od 20 lipca 2026 roku.</p>
+  </section>
+</main>
+
+<%- include('./includes/footer.ejs', { scripts: ['/js/stats.js'] }) %>

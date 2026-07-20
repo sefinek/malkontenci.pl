@@ -485,6 +485,11 @@ input[type="text"] {
   text-align: left;
 }
 
+.stats-link-wrap {
+  margin-top: 28px;
+  text-align: center;
+}
+
 .definition-block {
   border-left: 2px solid rgba(179, 69, 63, .35);
   padding-left: 32px;
@@ -705,10 +710,14 @@ input[type="text"] {
   margin: 0 0 32px;
 }
 
-.certs-section {
-  max-width: 1120px;
+.certs-section,
+.credits-section {
   margin: 6vh auto 0;
   padding: 0 32px 120px;
+}
+
+.certs-section {
+  max-width: 1120px;
 }
 
 .certs-heading {
@@ -716,11 +725,13 @@ input[type="text"] {
   margin-bottom: 48px;
 }
 
-.certs-heading h1 {
+.certs-heading h1,
+.credits-heading h1,
+.stats-heading h1 {
+  margin: 16px 0 14px;
+  color: #ece7e0;
   font-family: 'Cinzel', serif;
   font-size: clamp(30px, 5vw, 44px);
-  color: #ece7e0;
-  margin: 16px 0 14px;
 }
 
 .certs-empty {
@@ -1117,21 +1128,12 @@ footer {
 
 .credits-section {
   max-width: 960px;
-  margin: 6vh auto 0;
-  padding: 0 32px 120px;
 }
 
 .credits-heading {
   max-width: 720px;
   margin: 0 auto 52px;
   text-align: center;
-}
-
-.credits-heading h1 {
-  margin: 16px 0 14px;
-  color: #ece7e0;
-  font-family: 'Cinzel', serif;
-  font-size: clamp(30px, 5vw, 44px);
 }
 
 .credits-heading p,
@@ -1358,7 +1360,8 @@ footer {
 }
 
 @media (max-width: 640px) {
-  .credits-section {
+  .credits-section,
+  .stats-section {
     padding: 0 20px 80px;
   }
 

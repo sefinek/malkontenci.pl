@@ -13,14 +13,14 @@ Strona produkcyjna: [malkontenci.pl](https://malkontenci.pl)
 - polityka prywatności, creditsy i manifest aplikacji webowej.
 
 ## Technologie
-- Node.js i Express 5;
-- EJS;
-- Sharp do generowania grafik;
-- Redis oraz `express-session`;
-- JavaScript i CSS bez frameworka frontendowego.
+- Node.js (>=20.19.0) i Express 5
+- EJS
+- Sharp do generowania grafik
+- MongoDB oraz Redis
+- JavaScript i CSS bez frameworka frontendowego
 
 ## Uruchomienie lokalne
-Wymagane są Node.js 22 lub nowszy oraz działający serwer Redis.
+Sklonuj repozytorium, przedź do folderu i zainstaluj zależności.
 
 ```bash
 git clone https://github.com/sefinek/malkontenci.pl.git
@@ -28,9 +28,7 @@ cd malkontenci.pl
 npm i
 ```
 
-Utwórz plik `.env` w katalogu projektu na podstawie szablonu `.env.example`.
-
-Następnie uruchom aplikację:
+Utwórz plik `.env` w katalogu projektu na podstawie szablonu `.env.example`. Następnie uruchom aplikację:
 ```bash
 node index.js
 ```
@@ -40,7 +38,7 @@ Serwis domyślnie wystartuje pod adresem http://127.0.0.1:8080.
 ## Struktura projektu
 ```text
 assets/       fonty używane podczas generowania certyfikatów
-middlewares/ middleware Expressa
+middlewares/  middleware Expressa
 public/       statyczne CSS, JavaScript, obrazy, dźwięki i filmy
 routes/       trasy stron oraz API
 services/     połączenie z Redisem i usługi pomocnicze

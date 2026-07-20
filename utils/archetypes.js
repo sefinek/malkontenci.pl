@@ -47,5 +47,6 @@ const ARCHETYPES = [
 ];
 
 const getArchetype = total => ARCHETYPES.find(a => total >= a.min && total <= a.max) || ARCHETYPES[ARCHETYPES.length - 1];
+const ARCHETYPE_TITLES = ARCHETYPES.map(a => a.title);
 
-module.exports = { MAX_SCORE, getArchetype };
+module.exports = { MAX_SCORE, ARCHETYPE_TITLES, getArchetype };

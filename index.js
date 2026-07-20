@@ -12,6 +12,9 @@ const { globalLimiter } = require('./middlewares/ratelimit.js');
 const session = require('./middlewares/session.js');
 const { RenderError } = require('./utils/httpError.js');
 
+// Mongoose & passport initialization
+require('./database/mongoose.js');
+
 // Create an Express app
 const app = express();
 

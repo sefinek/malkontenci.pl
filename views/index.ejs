@@ -3,7 +3,6 @@
   description: 'Sprawdź, czy jesteś malkontentem. 20 pytań, 5 diagnoz, zero litości. Krajowa poradnia antyfrustracyjna.',
   keywords: 'malkontent, malkontenci, test malkontenta, test malkontenci.pl, czy jestem malkontentem',
   canonical: '/',
-  css: 'style',
   page: 'home'
 }) %>
 
@@ -114,6 +113,11 @@
         <div class="stat-label">przypadków przyznania się do przesady</div>
       </div>
     </div>
+    <% if (hasStats) { %>
+      <div class="stats-link-wrap">
+        <a class="nav-link" href="/statystyki">Zobacz prawdziwe statystyki poradni →</a>
+      </div>
+    <% } %>
   </section>
 
   <section class="quote-section view">
