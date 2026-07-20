@@ -239,6 +239,20 @@ header {
   transform: scale(.95);
 }
 
+.btn-primary:disabled,
+.btn-outline:disabled,
+.btn-ghost:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary:disabled:hover,
+.btn-primary:disabled:active {
+  background: #b3453f;
+  transform: none;
+}
+
 /* hero visual card */
 .hero-card-wrap {
   display: flex;
