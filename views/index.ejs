@@ -7,7 +7,7 @@
 }) %>
 
 <main>
-  <section class="hero view">
+  <section class="hero">
     <div class="hero-copy">
       <% if (dla) { %>
         <h1>Wygląda na to, że <%= dla %><br>jest malkontentem</h1>
@@ -46,7 +46,7 @@
     </div>
   </section>
 
-  <section class="intro-cards view">
+  <section class="intro-cards">
     <div class="card-grid cols-3">
       <div class="card">
         <div class="card-title">01. Diagnoza</div>
@@ -63,7 +63,7 @@
     </div>
   </section>
 
-  <section class="section view">
+  <section class="section">
     <span class="section-kicker">Definicja kliniczna</span>
     <div class="definition-block">
       <div class="definition-term">malkontent <span class="pos">rzeczownik, rodzaj męski</span></div>
@@ -75,7 +75,7 @@
     </div>
   </section>
 
-  <section class="section view">
+  <section class="section">
     <span class="section-kicker">Typowe zachowania</span>
     <div class="symptom-box">
       <div class="symptom-grid">
@@ -93,7 +93,7 @@
     </div>
   </section>
 
-  <section class="section centered view">
+  <section class="section centered">
     <span class="section-kicker">Wyniki badań</span>
     <p class="section-note">Dane zebrano podczas rozmów z osobami, które stanowczo odmawiały odnoszenia się do argumentów. Metodologia została przez nie uznana za beznadziejną.</p>
     <div class="card-grid cols-4">
@@ -121,12 +121,12 @@
     <% } %>
   </section>
 
-  <section class="quote-section view">
+  <section class="quote-section">
     <div class="quote-text">"Mogłeś podać innego malkontenta, ale przypier... się akurat do mnie. Teraz udajesz, że to był tylko przykład. Kończę tę dyskusję, bo do niczego nie prowadzi. Miłego dnia."</div>
     <div class="quote-author">relacja anonimowego pacjenta, który niestety nadal jest malkontentem</div>
   </section>
 
-  <section class="section proof view">
+  <section class="section proof">
     <div class="proof-photo">
       <img src="/images/certyfikat-w-ramce.jpg" alt="Wydrukowany i oprawiony w ramkę certyfikat diagnostyczny Malkontenta Okazjonalnego na półce pacjenta" width="1200" height="1600" loading="lazy" decoding="async">
     </div>
@@ -137,7 +137,7 @@
     </div>
   </section>
 
-  <section class="section centered wide view">
+  <section class="section centered wide">
     <span class="section-kicker">Grupy wsparcia</span>
     <p class="section-note">Nie musisz zmagać się z tym sam. Rozumiemy doskonale, że życie w samotności bywa przytłaczające. Poniżej oficjalnie rekomendowane punkty spotkań (frekwencja niska, opór wysoki).</p>
     <div class="card-grid cols-2">
@@ -157,7 +157,7 @@
     <div class="support-footnote">Jeżeli obie grupy odmówią dalszej współpracy, wystawimy skierowanie do placówki partnerskiej w Choroszczy. Prosimy o natychmiastowy kontakt, ponieważ miejsca są ograniczone.</div>
   </section>
 
-  <section class="cta-section view">
+  <section class="cta-section">
     <h3>Nadal uważasz, że problem dotyczy innych?</h3>
     <p>To typowe. Test zajmie około 4 minut i da ci wynik, z którym prawdopodobnie również się nie zgodzisz.</p>
     <a id="cta-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeName(dla)}` : '' %>">Rozpocznij badanie</a>

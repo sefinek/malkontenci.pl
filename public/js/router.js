@@ -56,6 +56,7 @@
 		'meta[property="og:url"]',
 		'meta[name="twitter:title"]',
 		'meta[name="twitter:description"]',
+		'script[type="application/ld+json"][data-seo]',
 	];
 
 	const syncPageCss = doc => {

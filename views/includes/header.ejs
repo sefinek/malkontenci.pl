@@ -8,7 +8,7 @@
 	<!-- Primary meta -->
 	<% if (locals.description) { %><meta name="description" content="<%= description %>"><% }
 	if (locals.keywords) { %><meta name="keywords" content="<%= keywords %>"><% }
-	if (locals.noindex) { %><meta name="robots" content="noindex, nofollow"><% }
+	if (locals.noindex) { %><meta name="robots" content="noindex"><% }
 	if (locals.canonical) { %><link rel="canonical" href="<%= domain %><%= _basePath %>"><% } %>
 	<meta name="theme-color" content="#161513">
 	<link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -23,11 +23,18 @@
 	<meta property="og:title" content="<%= title %>">
 	<% if (locals.description) { %><meta property="og:description" content="<%= description %>"><% } %>
 	<meta property="og:url" content="<%= domain %><%= _basePath %>">
+	<meta property="og:image" content="<%= domain %>/images/brand/icon-bg-512.png">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="512">
+	<meta property="og:image:height" content="512">
+	<meta property="og:image:alt" content="Logo malkontenci.pl">
 
 	<!-- Twitter / X Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="<%= title %>">
 	<% if (locals.description) { %><meta name="twitter:description" content="<%= description %>"><% } %>
+	<meta name="twitter:image" content="<%= domain %>/images/brand/icon-bg-512.png">
+	<meta name="twitter:image:alt" content="Logo malkontenci.pl">
 
 	<!-- JavaScript -->
 	<script src="https://cdn.sefinek.net/js/progressbar.js"></script>
@@ -39,8 +46,8 @@
 	<link rel="stylesheet" href="/css/global.css">
 	<% if (locals.css) { (Array.isArray(css) ? css : [css]).forEach(c => { %><link rel="stylesheet" href="/css/<%= c %>.css" data-page-css><% }) } %>
 
-	<!-- schema.org -->
-	<script type="application/ld+json">
+	<% if (_basePath === '/') { %><!-- schema.org -->
+	<script type="application/ld+json" data-seo>
 	{
 		"@context": "https://schema.org",
 		"@type": "WebSite",
@@ -49,7 +56,7 @@
 		"description": "Test diagnostyczny sprawdzający, czy jesteś malkontentem. Po ukończeniu testu otrzymasz także certyfikat. Krajowa Poradnia Antyfrustracyjna pozdrawia.",
 		"inLanguage": "pl-PL"
 	}
-	</script>
+	</script><% } %>
 </head>
 <body data-page="<%= locals.page || '' %>">
 <audio id="bg-music" src="/sound/oblivion-harvest-dawn.mp3" autoplay muted preload="auto"></audio>

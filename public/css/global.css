@@ -176,10 +176,6 @@ header {
   transform: scale(.95);
 }
 
-.view {
-  animation: riseIn .6s ease both;
-}
-
 .hero {
   max-width: 1500px;
   margin: 0 auto;
@@ -1314,7 +1310,7 @@ footer {
   margin-bottom: 10px;
 }
 
-.modal h3 {
+.modal h1 {
   font-family: 'Cinzel', serif;
   font-size: 22px;
   color: #ece7e0;
