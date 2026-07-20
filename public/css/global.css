@@ -200,20 +200,11 @@ header {
   text-wrap: pretty;
 }
 
-.hero-copy p.sub1 {
+.hero-copy p.sub {
   font-size: 18px;
   line-height: 1.7;
-  color: #c4beb6;
-  max-width: 520px;
-  margin: 0 0 12px;
-}
-
-.hero-copy p.sub2 {
-  font-size: 16px;
-  line-height: 1.7;
   color: #7a746e;
-  max-width: 550px;
-  margin: 0 0 40px;
+  margin: 0 0 12px;
 }
 
 .btn-primary,
@@ -1511,10 +1502,6 @@ footer {
 
   .hero-copy h1 br {
     display: none;
-  }
-
-  .hero-copy p.sub2 {
-    margin-bottom: 32px;
   }
 
   .section {

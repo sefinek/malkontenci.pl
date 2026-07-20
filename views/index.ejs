@@ -11,12 +11,13 @@
     <div class="hero-copy">
       <% if (dla) { %>
         <h1>Wygląda na to, że <%= dla %><br>jest malkontentem</h1>
-        <p class="sub1">Podobno przechodzisz ostatnio trudny okres. Odpowiedz na serię krótkich pytań. Spróbujemy cię wyleczyć.</p>
-        <p class="sub2">Doskonale cię rozumiemy <%= dla %>, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
+        <p class="sub">
+          Podobno przechodzisz ostatnio trudny okres. Odpowiedz na serię krótkich pytań. Spróbujemy cię wyleczyć.
+          Doskonale cię rozumiemy <%= dla %>, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.
+        </p>
       <% } else { %>
-        <h1>Wygląda na to, że ktoś powiedział ci,<br>że jesteś malkontentem</h1>
-        <p class="sub1">Przejdź test, a następnie spróbujemy cię wyleczyć.</p>
-        <p class="sub2">Rozumiemy, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
+        <h1>Wygląda na to, że jesteś malkontentem</h1>
+        <p class="sub">Przejdź test, a następnie spróbujemy cię wyleczyć. Rozumiemy, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
       <% } %>
       <a id="start-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeName(dla)}` : '' %>">Rozpocznij diagnozę</a>
 
