@@ -5,10 +5,34 @@ const { ARCHETYPE_TITLES, getArchetype } = require('../utils/archetypes.js');
 const { PET_QUESTION, PUBLIC_QUESTIONS, computeScore } = require('../utils/quiz.js');
 const { ApiError } = require('../utils/httpError.js');
 const TestResult = require('../database/models/testResult.model.js');
+const RedisClient = require('../services/redis.js');
 
 const toDataUrl = buf => `data:image/jpeg;base64,${buf.toString('base64')}`;
 const REGENERATE_COOLDOWN_MS = 4000;
 const STATS_DAYS = 30;
+const TEST_LIMIT_HOUR_MAX = 2;
+const TEST_LIMIT_HOUR_WINDOW_S = 60 * 60;
+const TEST_LIMIT_WEEK_MAX = 5;
+const TEST_LIMIT_WEEK_WINDOW_S = 7 * 24 * 60 * 60;
+
+const incrWithExpiry = async (key, windowS) => {
+	const count = await RedisClient.incr(key);
+	if (count === 1) await RedisClient.expire(key, windowS);
+	return count;
+};
+
+const peekTestLimit = async ip => {
+	const [hourCount, weekCount] = await Promise.all([
+		RedisClient.get(`malkontencipl:test-limit:hour:${ip}`),
+		RedisClient.get(`malkontencipl:test-limit:week:${ip}`),
+	]);
+	return Number(hourCount) < TEST_LIMIT_HOUR_MAX && Number(weekCount) < TEST_LIMIT_WEEK_MAX;
+};
+
+const consumeTestLimit = ip => Promise.all([
+	incrWithExpiry(`malkontencipl:test-limit:hour:${ip}`, TEST_LIMIT_HOUR_WINDOW_S),
+	incrWithExpiry(`malkontencipl:test-limit:week:${ip}`, TEST_LIMIT_WEEK_WINDOW_S),
+]);
 
 const QUESTIONS_PAYLOAD = { success: true, status: 200, questions: PUBLIC_QUESTIONS };
 
@@ -32,6 +56,7 @@ router.post('/certificate', certificateLimiter, async (req, res) => {
 	const isSameKey = Boolean(cached && cached.key === key);
 
 	if (!isSameKey && cached && Date.now() - cached.at < REGENERATE_COOLDOWN_MS) return ApiError(res, 429);
+	if (!isSameKey && !(await peekTestLimit(req.ip))) return ApiError(res, 429);
 
 	try {
 		const arch = getArchetype(score);
@@ -43,6 +68,7 @@ router.post('/certificate', certificateLimiter, async (req, res) => {
 		if (!isSameKey) {
 			req.session.cert = { key, at: Date.now() };
 			TestResult.create({ score, archetype: arch.title }).catch(err => console.error('Nie udało się zapisać wyniku do statystyk:', err));
+			consumeTestLimit(req.ip).catch(err => console.error('Nie udało się zaktualizować limitu testów:', err));
 		}
 
 		res.json({

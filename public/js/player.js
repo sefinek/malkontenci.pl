@@ -2,7 +2,6 @@ const STORAGE_KEY = 'muzyka';
 
 const music = document.getElementById('bg-music');
 const soundBtn = document.getElementById('sound-btn');
-const soundIcon = document.getElementById('sound-icon');
 const soundLabel = document.getElementById('sound-label');
 
 let soundOn = false;
@@ -27,7 +26,6 @@ const startSound = () => {
 	soundOn = true;
 	music.muted = false;
 	music.play().catch(() => undefined);
-	soundIcon.textContent = '🔊';
 	soundLabel.textContent = 'Zatrzymaj muzykę';
 };
 
@@ -41,7 +39,6 @@ const toggleSound = () => {
 	soundOn = false;
 	music.pause();
 	music.muted = true;
-	soundIcon.textContent = '🔈';
 	soundLabel.textContent = 'Włącz muzykę';
 	setStoredPreference('off');
 };
