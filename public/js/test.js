@@ -40,6 +40,12 @@
 		});
 	};
 
+	const resetTurnstile = () => {
+		turnstileToken = null;
+		els.nickConfirm.disabled = true;
+		if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+	};
+
 	const loadQuiz = async () => {
 		const res = await fetch('/api/v1/questions');
 		if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -424,7 +430,8 @@
 	const restart = () => {
 		els.copyBtn.textContent = 'Skopiuj wynik';
 		resetResultMedia();
-		startQuiz();
+		resetTurnstile();
+		openNickDialog();
 	};
 
 	const copyResult = () => {
