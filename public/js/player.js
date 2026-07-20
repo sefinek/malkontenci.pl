@@ -1,3 +1,5 @@
+const STORAGE_KEY = 'muzyka';
+
 const music = document.getElementById('bg-music');
 const soundBtn = document.getElementById('sound-btn');
 const soundIcon = document.getElementById('sound-icon');
@@ -5,6 +7,20 @@ const soundLabel = document.getElementById('sound-label');
 
 let soundOn = false;
 let suppressed = false;
+
+const getStoredPreference = () => {
+	try {
+		return localStorage.getItem(STORAGE_KEY);
+	} catch {
+		return null;
+	}
+};
+
+const setStoredPreference = value => {
+	try {
+		localStorage.setItem(STORAGE_KEY, value);
+	} catch { /* ... */ }
+};
 
 const startSound = () => {
 	if (soundOn) return;
@@ -18,6 +34,7 @@ const startSound = () => {
 const toggleSound = () => {
 	if (!soundOn) {
 		startSound();
+		setStoredPreference('on');
 		return;
 	}
 
@@ -26,6 +43,7 @@ const toggleSound = () => {
 	music.muted = true;
 	soundIcon.textContent = '🔈';
 	soundLabel.textContent = 'Włącz muzykę';
+	setStoredPreference('off');
 };
 
 const syncPlayback = () => {
@@ -38,7 +56,7 @@ const syncPlayback = () => {
 
 music.volume = 0.75;
 soundBtn.addEventListener('click', toggleSound);
-document.addEventListener('click', startSound, { once: true });
+if (getStoredPreference() !== 'off') document.addEventListener('click', startSound, { once: true });
 document.addEventListener('visibilitychange', syncPlayback);
 window.addEventListener('blur', syncPlayback);
 window.addEventListener('focus', syncPlayback);

@@ -711,7 +711,8 @@ input[type="text"] {
 }
 
 .certs-section,
-.credits-section {
+.credits-section,
+.stats-section {
   margin: 6vh auto 0;
   padding: 0 32px 120px;
 }
