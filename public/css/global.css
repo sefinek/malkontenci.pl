@@ -1315,6 +1315,12 @@ footer {
   margin-bottom: 22px;
 }
 
+.turnstile-widget {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
 .modal-actions {
   display: flex;
   gap: 12px;

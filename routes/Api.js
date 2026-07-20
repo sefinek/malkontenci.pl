@@ -14,6 +14,7 @@ const TEST_LIMIT_HOUR_MAX = 2;
 const TEST_LIMIT_HOUR_WINDOW_S = 60 * 60;
 const TEST_LIMIT_WEEK_MAX = 5;
 const TEST_LIMIT_WEEK_WINDOW_S = 7 * 24 * 60 * 60;
+const TURNSTILE_SECRET_KEY = process.env.NODE_ENV === 'production' ? process.env.TURNSTILE_SECRET_KEY : '1x0000000000000000000000000000000AA';
 
 const incrWithExpiry = async (key, windowS) => {
 	const count = await RedisClient.incr(key);
@@ -34,6 +35,22 @@ const consumeTestLimit = ip => Promise.all([
 	incrWithExpiry(`malkontencipl:test-limit:week:${ip}`, TEST_LIMIT_WEEK_WINDOW_S),
 ]);
 
+const verifyTurnstile = async (token, ip) => {
+	if (typeof token !== 'string' || !token) return false;
+
+	try {
+		const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: new URLSearchParams({ secret: TURNSTILE_SECRET_KEY, response: token, remoteip: ip }),
+		});
+		const data = await res.json();
+		return data.success === true;
+	} catch {
+		return false;
+	}
+};
+
 const QUESTIONS_PAYLOAD = { success: true, status: 200, questions: PUBLIC_QUESTIONS };
 
 router.get('/questions', (req, res) => {
@@ -42,7 +59,7 @@ router.get('/questions', (req, res) => {
 });
 
 router.post('/certificate', certificateLimiter, async (req, res) => {
-	const { nickname, ticketNumber, answers } = req.body || {};
+	const { nickname, ticketNumber, answers, turnstileToken } = req.body || {};
 
 	if (typeof ticketNumber !== 'string' || !(/^\d{4}$/).test(ticketNumber)) return ApiError(res, 400);
 	if (nickname !== undefined && (typeof nickname !== 'string' || nickname.length > 24)) return ApiError(res, 400);
@@ -55,6 +72,7 @@ router.post('/certificate', certificateLimiter, async (req, res) => {
 	const cached = req.session.cert;
 	const isSameKey = Boolean(cached && cached.key === key);
 
+	if (!isSameKey && !(await verifyTurnstile(turnstileToken, req.ip))) return ApiError(res, 400);
 	if (!isSameKey && cached && Date.now() - cached.at < REGENERATE_COOLDOWN_MS) return ApiError(res, 429);
 	if (!isSameKey && !(await peekTestLimit(req.ip))) return ApiError(res, 429);
 

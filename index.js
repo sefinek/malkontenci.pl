@@ -27,7 +27,7 @@ app.locals.version = version;
 // Use middlewares
 app.use(helmet({ crossOriginResourcePolicy: false, contentSecurityPolicy: false }));
 app.use(express.static('public'));
-app.use(express.json({ limit: '2kb' }));
+app.use(express.json({ limit: '8kb' }));
 app.use(logger);
 if (isProd) app.use(globalLimiter);
 app.use(timeout());

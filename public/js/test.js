@@ -9,6 +9,30 @@
 	let quizReady = null;
 	let els;
 	let state;
+	let turnstileToken = null;
+	let turnstileWidgetId = null;
+
+	const initTurnstile = () => {
+		const container = document.getElementById('turnstile-widget');
+		if (!container || !window.turnstile || turnstileWidgetId !== null) return;
+
+		turnstileWidgetId = window.turnstile.render(container, {
+			sitekey: container.dataset.sitekey,
+			'refresh-expired': 'auto',
+			callback: token => {
+				turnstileToken = token;
+				els.nickConfirm.disabled = false;
+			},
+			'error-callback': () => {
+				turnstileToken = null;
+				els.nickConfirm.disabled = true;
+			},
+			'expired-callback': () => {
+				turnstileToken = null;
+				els.nickConfirm.disabled = true;
+			},
+		});
+	};
 
 	const loadQuiz = async () => {
 		const res = await fetch('/api/v1/questions');
@@ -228,7 +252,7 @@
 			const res = await fetch('/api/v1/certificate', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ nickname: nick, ticketNumber: state.ticketNumber, answers: answersByQuestionIndex() }),
+				body: JSON.stringify({ nickname: nick, ticketNumber: state.ticketNumber, answers: answersByQuestionIndex(), turnstileToken }),
 			});
 			const data = await res.json().catch(() => null);
 			if (!res.ok || !data || !data.success) {
@@ -411,6 +435,7 @@
 		ensureQuizLoaded().catch(() => undefined);
 
 		els = queryEls();
+		initTurnstile();
 		let storedNick = '';
 		try { storedNick = localStorage.getItem('nick') || ''; } catch { /* ... */ }
 		state = {
