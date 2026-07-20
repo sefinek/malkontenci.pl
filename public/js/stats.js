@@ -29,7 +29,10 @@
 
 			const label = document.createElement('div');
 			label.className = 'stats-bar-label';
-			if (i % 5 === 0 || i === byDay.length - 1) label.textContent = day.date.slice(5).replace('-', '.');
+			if (i % 5 === 0 || i === byDay.length - 1) {
+				const [, month, dayOfMonth] = day.date.split('-');
+				label.textContent = `${dayOfMonth}.${month}`;
+			}
 			bar.appendChild(label);
 
 			fragment.appendChild(bar);

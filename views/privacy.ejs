@@ -16,26 +16,43 @@
       <h2>Administrator i kontakt</h2>
       <p>Administratorem serwisu malkontenci.pl jest Sefinek. W sprawach dotyczących prywatności napisz na <a href="mailto:contact@sefinek.net">contact@sefinek.net</a>.</p>
 
-      <h2>Jakie dane przetwarzamy?</h2>
+      <h2>Co trafia do serwera?</h2>
       <ul>
         <li>Logi techniczne mogą zawierać adres IP, User-Agent, odwiedzony adres, referrer, status odpowiedzi i czas obsługi żądania. Nie zapisujemy treści formularza testu w logach.</li>
-        <li>Cookie sesyjne <code>mki.sid</code> służy do zabezpieczenia generowania certyfikatów i wygasa po 2 godzinach.</li>
-        <li>Pseudonim, numer zgłoszenia, postęp testu i certyfikaty są zapisywane lokalnie w pamięci Twojej przeglądarki. Możesz je usunąć, czyszcząc dane witryny.</li>
+        <li>Podczas generowania certyfikatu serwer otrzymuje pseudonim, numer zgłoszenia i odpowiedzi. Na ich podstawie oblicza wynik i tworzy obraz. Odpowiedzi nie są zapisywane w logach ani w bazie statystyk.</li>
+        <li>Cookie sesyjne <code>mki.sid</code> łączy przeglądarkę z krótkotrwałą sesją w Redisie. Sesja zawiera numer zgłoszenia, wynik, pseudonim i czas wygenerowania dokumentu. Wygasa po 2 godzinach.</li>
+        <li>Adres IP jest używany do ograniczenia liczby testów. Licznik godzinny wygasa po godzinie, a tygodniowy po 7 dniach.</li>
       </ul>
 
-      <h2>Po co i jak długo?</h2>
-      <p>Dane techniczne przetwarzamy w celu działania serwisu, ochrony przed nadużyciami i diagnozowania błędów, na podstawie naszego prawnie uzasadnionego interesu. Logi przechowujemy tylko przez okres niezbędny do realizacji tych celów, zgodnie z rotacją logów serwera. Dane sesji są usuwane po jej wygaśnięciu, a dane w przeglądarce pozostają do czasu ich usunięcia przez użytkownika.</p>
+      <h2>Co zostaje w przeglądarce?</h2>
+      <p>Pseudonim, numer zgłoszenia i maksymalnie 12 ostatnich dokumentów zapisujemy w pamięci lokalnej. Postęp testu, w tym kolejność pytań i udzielone odpowiedzi, trafia do pamięci sesyjnej. Okres przechowywania zależy od rodzaju pamięci. Dane znikają po ich usunięciu przez Ciebie, wyczyszczeniu danych witryny albo zakończeniu sesji przeglądarki.</p>
+
+      <h2>Anonimowe statystyki</h2>
+      <p>Po ukończeniu testu zapisujemy wynik, typ malkontenta i datę wykonania diagnozy. Nie łączymy tych informacji z pseudonimem, numerem zgłoszenia, adresem IP ani identyfikatorem sesji. Służą wyłącznie do tworzenia zbiorczych statystyk i pozostają w bazie tak długo, jak długo prowadzimy te statystyki.</p>
+
+      <h2>Po co to robimy?</h2>
+      <p>Dane techniczne przetwarzamy, aby serwis działał, generował dokumenty, bronił się przed botami i nadużyciami oraz pozwalał nam diagnozować błędy. Podstawą jest nasz prawnie uzasadniony interes polegający na bezpiecznym prowadzeniu serwisu i udostępnianiu jego funkcji. Logi techniczne są usuwane zgodnie z rotacją logów serwera. Nie korzystamy z reklam ani narzędzi analitycznych śledzących użytkowników.</p>
 
       <h2>Usługi zewnętrzne</h2>
-      <p>Serwis pobiera kroje pisma z Google Fonts oraz skrypt interfejsu z <code>cdn.sefinek.net</code>. Dostawcy tych zasobów mogą otrzymać podstawowe dane połączenia, w szczególności adres IP i User-Agent. Nie korzystamy z reklam ani narzędzi analitycznych śledzących użytkowników.</p>
+      <ul>
+        <li><strong>Cloudflare Turnstile</strong> chroni formularz przed botami. Przeglądarka łączy się z Cloudflare, a podczas weryfikacji przekazujemy Cloudflare token oraz adres IP. Cloudflare może przetwarzać także techniczne sygnały przeglądarki i urządzenia. Szczegóły znajdziesz w <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">informacji o prywatności Turnstile</a>.</li>
+        <li><strong>Google Fonts</strong> dostarcza kroje pisma. Przy ich pobieraniu Google może otrzymać adres IP, User-Agent i podstawowe dane żądania.</li>
+        <li><strong>cdn.sefinek.net</strong> dostarcza skrypt interfejsu. Serwer CDN otrzymuje podstawowe dane połączenia potrzebne do wysłania pliku.</li>
+      </ul>
+
+      <h2>Cookies i podobne technologie</h2>
+      <p>Nie używamy cookies reklamowych ani analitycznych. Cookie <code>mki.sid</code> oraz pamięć przeglądarki są potrzebne do działania testu, zapamiętania postępu i przechowania dokumentów. Możesz usunąć je w ustawieniach przeglądarki, ale część funkcji przestanie wtedy działać lub utraci zapisane dane.</p>
 
       <h2>Twoje prawa</h2>
-      <p>Możesz poprosić o dostęp do danych, ich sprostowanie, usunięcie, ograniczenie przetwarzania lub wnieść sprzeciw. Masz również prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych. Wynik testu ma charakter wyłącznie rozrywkowy i nie wywołuje skutków prawnych.</p>
+      <p>Możesz poprosić o dostęp do swoich danych, ich sprostowanie, usunięcie lub ograniczenie przetwarzania, a także wnieść sprzeciw wobec przetwarzania opartego na prawnie uzasadnionym interesie. Napisz w tej sprawie na podany wyżej adres. Masz również prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+
+      <h2>Dobrowolność i charakter testu</h2>
+      <p>Podanie pseudonimu jest dobrowolne. Możesz pozostać Anonimowym Malkontentem. Nie wpisuj imienia, nazwiska ani innych informacji, które pozwalają Cię rozpoznać. Wynik jest obliczany automatycznie, ale test ma charakter wyłącznie rozrywkowy i nie wywołuje skutków prawnych ani innych podobnie istotnych konsekwencji.</p>
 
       <h2>Open-source</h2>
       <p>Ta witryna jest w pełni open-source. Możesz w każdej chwili sprawdzić jej kod źródłowy. Repozytorium znajdziesz w stopce.</p>
 
-      <p class="privacy-updated">Ostatnia aktualizacja: 18 lipca 2026 r.</p>
+      <p class="privacy-updated">Ostatnia aktualizacja: 20 lipca 2026 r.</p>
     </div>
   </section>
 </main>
