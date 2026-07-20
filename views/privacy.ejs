@@ -14,34 +14,39 @@
 
     <div class="privacy-content credit-card">
       <h2>Administrator i kontakt</h2>
-      <p>Administratorem serwisu malkontenci.pl jest Sefinek. W sprawach dotyczących prywatności napisz na <a href="mailto:contact@sefinek.net">contact@sefinek.net</a>.</p>
+      <p>Administratorem serwisu malkontenci.pl jest <a href="https://sefinek.net" target="_blank" rel="noopener">Sefinek</a>. W sprawach dotyczących prywatności napisz na <a href="mailto:contact@sefinek.net">contact@sefinek.net</a>.</p>
 
       <h2>Co trafia do serwera?</h2>
       <ul>
         <li>Logi techniczne mogą zawierać adres IP, User-Agent, odwiedzony adres, referrer, status odpowiedzi i czas obsługi żądania. Nie zapisujemy treści formularza testu w logach.</li>
         <li>Podczas generowania certyfikatu serwer otrzymuje pseudonim, numer zgłoszenia i odpowiedzi. Na ich podstawie oblicza wynik i tworzy obraz. Odpowiedzi nie są zapisywane w logach ani w bazie statystyk.</li>
         <li>Cookie sesyjne <code>mki.sid</code> łączy przeglądarkę z krótkotrwałą sesją w Redisie. Sesja zawiera numer zgłoszenia, wynik, pseudonim i czas wygenerowania dokumentu. Wygasa po 2 godzinach.</li>
+        <li>Adres IP jest używany przez krótkotrwałe zabezpieczenia ograniczające liczbę żądań. Ich liczniki wygasają najpóźniej po minucie.</li>
         <li>Adres IP jest używany do ograniczenia liczby testów. Licznik godzinny wygasa po godzinie, a tygodniowy po 7 dniach.</li>
       </ul>
 
       <h2>Co zostaje w przeglądarce?</h2>
-      <p>Pseudonim, numer zgłoszenia i maksymalnie 12 ostatnich dokumentów zapisujemy w pamięci lokalnej. Postęp testu, w tym kolejność pytań i udzielone odpowiedzi, trafia do pamięci sesyjnej. Okres przechowywania zależy od rodzaju pamięci. Dane znikają po ich usunięciu przez Ciebie, wyczyszczeniu danych witryny albo zakończeniu sesji przeglądarki.</p>
+      <p>Pseudonim, numer zgłoszenia, ustawienie muzyki i maksymalnie 12 ostatnich dokumentów zapisujemy w pamięci lokalnej. Postęp testu, w tym kolejność pytań i udzielone odpowiedzi, trafia do pamięci sesyjnej. Okres przechowywania zależy od rodzaju pamięci. Dane znikają po ich usunięciu przez Ciebie, wyczyszczeniu danych witryny albo zakończeniu sesji przeglądarki.</p>
 
-      <h2>Anonimowe statystyki</h2>
-      <p>Po ukończeniu testu zapisujemy wynik, typ malkontenta i datę wykonania diagnozy. Nie łączymy tych informacji z pseudonimem, numerem zgłoszenia, adresem IP ani identyfikatorem sesji. Służą wyłącznie do tworzenia zbiorczych statystyk i pozostają w bazie tak długo, jak długo prowadzimy te statystyki.</p>
+      <h2>Statystyki bez bezpośrednich identyfikatorów</h2>
+      <p>Po ukończeniu testu zapisujemy wynik, typ malkontenta i dokładny czas wykonania diagnozy. Rekord nie zawiera pseudonimu, numeru zgłoszenia, adresu IP ani identyfikatora sesji. Dane służą do tworzenia bieżących i historycznych statystyk. Nie planujemy ich automatycznego usuwania.</p>
 
-      <h2>Po co to robimy?</h2>
-      <p>Dane techniczne przetwarzamy, aby serwis działał, generował dokumenty, bronił się przed botami i nadużyciami oraz pozwalał nam diagnozować błędy. Podstawą jest nasz prawnie uzasadniony interes polegający na bezpiecznym prowadzeniu serwisu i udostępnianiu jego funkcji. Logi techniczne są usuwane zgodnie z rotacją logów serwera. Nie korzystamy z reklam ani narzędzi analitycznych śledzących użytkowników.</p>
+      <h2>Po co i jak długo?</h2>
+      <p>Dane techniczne przetwarzamy, aby serwis działał, generował dokumenty, tworzył statystyki, bronił się przed botami i nadużyciami oraz pozwalał nam diagnozować błędy. Podstawą jest nasz prawnie uzasadniony interes polegający na bezpiecznym prowadzeniu serwisu i udostępnianiu jego funkcji. Logi techniczne nie mają automatycznej rotacji ani ustalonego z góry terminu usunięcia. Administrator przegląda je i usuwa ręcznie, gdy uzna, że nie są już potrzebne do bezpieczeństwa lub diagnozowania błędów. Nie korzystamy z reklam ani narzędzi analitycznych przeznaczonych do śledzenia użytkowników w celach marketingowych.</p>
+
+      <h2>Gdzie są dane?</h2>
+      <p>Serwer aplikacji, Redis i MongoDB działają na tym samym domowym serwerze administratora. Nie korzystamy z zewnętrznego dostawcy hostingu dla tych usług. Dostęp do serwera ma administrator.</p>
 
       <h2>Usługi zewnętrzne</h2>
       <ul>
-        <li><strong>Cloudflare Turnstile</strong> chroni formularz przed botami. Przeglądarka łączy się z Cloudflare, a podczas weryfikacji przekazujemy Cloudflare token oraz adres IP. Cloudflare może przetwarzać także techniczne sygnały przeglądarki i urządzenia. Szczegóły znajdziesz w <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">informacji o prywatności Turnstile</a>.</li>
-        <li><strong>Google Fonts</strong> dostarcza kroje pisma. Przy ich pobieraniu Google może otrzymać adres IP, User-Agent i podstawowe dane żądania.</li>
+        <li><strong>Cloudflare</strong> pośredniczy w całym ruchu do witryny jako dostawca proxy, CDN i zabezpieczeń. Otrzymuje między innymi adres IP, żądany adres, nagłówki połączenia i dane techniczne przeglądarki. Cloudflare Turnstile dodatkowo chroni formularz przed botami. Podczas weryfikacji przekazujemy Cloudflare token i adres IP, a Turnstile może analizować między innymi User-Agent i odcisk połączenia TLS. Cloudflare działa w tym zakresie jako podmiot przetwarzający, a przy doskonaleniu Turnstile także jako odrębny administrator. Szczegóły znajdziesz w <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener noreferrer">informacji o prywatności Turnstile</a> oraz <a href="https://www.cloudflare.com/policies/privacy/" target="_blank" rel="noopener noreferrer">polityce prywatności Cloudflare</a>.</li>
+        <li><strong>Google Fonts</strong> dostarcza kroje pisma. Przy ich pobieraniu Google otrzymuje adres IP, żądany adres, User-Agent, referrer oraz podstawowe informacje o przeglądarce i systemie operacyjnym. Szczegóły znajdziesz w <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener noreferrer">informacji o prywatności Google Fonts</a>.</li>
         <li><strong>cdn.sefinek.net</strong> dostarcza skrypt interfejsu. Serwer CDN otrzymuje podstawowe dane połączenia potrzebne do wysłania pliku.</li>
       </ul>
+      <p>Cloudflare i Google działają globalnie, dlatego dane mogą być przetwarzane poza Europejskim Obszarem Gospodarczym, w tym w Stanach Zjednoczonych. Dostawcy deklarują stosowanie mechanizmu EU-U.S. Data Privacy Framework, a w pozostałych przypadkach standardowych klauzul umownych.</p>
 
       <h2>Cookies i podobne technologie</h2>
-      <p>Nie używamy cookies reklamowych ani analitycznych. Cookie <code>mki.sid</code> oraz pamięć przeglądarki są potrzebne do działania testu, zapamiętania postępu i przechowania dokumentów. Możesz usunąć je w ustawieniach przeglądarki, ale część funkcji przestanie wtedy działać lub utraci zapisane dane.</p>
+      <p>Nie używamy cookies reklamowych ani analitycznych. Cookie <code>mki.sid</code> oraz pamięć przeglądarki służą do działania testu, zapamiętania postępu, zachowania ustawienia muzyki i przechowania dokumentów. Zapis i odczyt tych informacji służy dostarczeniu funkcji żądanych przez użytkownika. Możesz usunąć je w ustawieniach przeglądarki, ale część funkcji przestanie wtedy działać lub utraci zapisane dane.</p>
 
       <h2>Twoje prawa</h2>
       <p>Możesz poprosić o dostęp do swoich danych, ich sprostowanie, usunięcie lub ograniczenie przetwarzania, a także wnieść sprzeciw wobec przetwarzania opartego na prawnie uzasadnionym interesie. Napisz w tej sprawie na podany wyżej adres. Masz również prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.</p>
@@ -50,7 +55,7 @@
       <p>Podanie pseudonimu jest dobrowolne. Możesz pozostać Anonimowym Malkontentem. Nie wpisuj imienia, nazwiska ani innych informacji, które pozwalają Cię rozpoznać. Wynik jest obliczany automatycznie, ale test ma charakter wyłącznie rozrywkowy i nie wywołuje skutków prawnych ani innych podobnie istotnych konsekwencji.</p>
 
       <h2>Open-source</h2>
-      <p>Ta witryna jest w pełni open-source. Możesz w każdej chwili sprawdzić jej kod źródłowy. Repozytorium znajdziesz w stopce.</p>
+      <p>Kod źródłowy witryny jest publicznie dostępny. Możesz go w każdej chwili sprawdzić. Repozytorium znajdziesz w stopce.</p>
 
       <p class="privacy-updated">Ostatnia aktualizacja: 20 lipca 2026 r.</p>
     </div>

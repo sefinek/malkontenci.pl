@@ -54,10 +54,18 @@ body {
 
 a {
   color: #c9847e;
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 a:hover {
   color: #e0b6b0;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #e0b6b0;
+  text-decoration: none;
 }
 
 @keyframes riseIn {
