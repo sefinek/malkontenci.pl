@@ -20,10 +20,15 @@ const RenderError = (res, status, err) => {
 	});
 };
 
-const ApiError = (res, status, err, msg) => {
+const ApiError = (res, status, err, msg, code) => {
 	if (err) console.error(err);
 
-	res.status(status).json({ success: false, status, message: msg || API_MESSAGES[status] || 'Wystąpił nieznany błąd. Zgłoś go proszę na contact@sefinek.net' });
+	res.status(status).json({
+		success: false,
+		status,
+		message: msg || API_MESSAGES[status] || 'Wystąpił nieznany błąd. Zgłoś go proszę na contact@sefinek.net',
+		...(code ? { code } : {}),
+	});
 };
 
 module.exports = { RenderError, ApiError };

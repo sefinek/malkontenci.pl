@@ -11,22 +11,13 @@
 	let state;
 	let turnstileToken = null;
 	let turnstileWidgetId = null;
+	let verificationPending = false;
+	let resumeAfterVerification = false;
 
 	const fromBase64Url = str => {
 		const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
 		const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
 		return atob(padded);
-	};
-
-	const moveTurnstileToModal = () => {
-		const container = document.getElementById('turnstile-widget');
-		if (container && els.modalActions) els.modalActions.parentElement.insertBefore(container, els.modalActions);
-	};
-
-	const moveTurnstileOffscreen = () => {
-		const container = document.getElementById('turnstile-widget');
-		const keepalive = document.getElementById('turnstile-keepalive');
-		if (container && keepalive) keepalive.appendChild(container);
 	};
 
 	const initTurnstile = () => {
@@ -38,15 +29,20 @@
 			'refresh-expired': 'auto',
 			callback: token => {
 				turnstileToken = token;
+				els.turnstileError.classList.add('hidden');
 				els.nickConfirm.disabled = false;
 			},
 			'error-callback': () => {
 				turnstileToken = null;
 				els.nickConfirm.disabled = true;
+				els.turnstileError.textContent = 'Nie udało się przeprowadzić weryfikacji. Spróbuj ponownie.';
+				els.turnstileError.classList.remove('hidden');
 			},
 			'expired-callback': () => {
 				turnstileToken = null;
 				els.nickConfirm.disabled = true;
+				els.turnstileError.textContent = 'Weryfikacja wygasła. Poczekaj na jej odświeżenie.';
+				els.turnstileError.classList.remove('hidden');
 			},
 		});
 	};
@@ -102,9 +98,9 @@
 		copyBtn: document.getElementById('copy-btn'),
 		restartBtn: document.getElementById('restart-btn'),
 		modalOverlay: document.getElementById('nick-modal'),
-		modalActions: document.getElementById('modal-actions'),
 		nickInput: document.getElementById('nick-input'),
 		nickConfirm: document.getElementById('nick-confirm'),
+		turnstileError: document.getElementById('turnstile-error'),
 		certImageStatus: document.getElementById('cert-image-status'),
 		certImageWrap: document.getElementById('cert-image-wrap'),
 		certImage: document.getElementById('cert-image'),
@@ -122,9 +118,11 @@
 		window.scrollTo({ top: 0, behavior: 'instant' });
 	};
 
-	const openNickDialog = () => {
+	const openNickDialog = ({ resume = false, message = '' } = {}) => {
+		resumeAfterVerification = resume;
 		els.nickInput.value = state.targetName || state.nickname || '';
-		moveTurnstileToModal();
+		els.turnstileError.textContent = message;
+		els.turnstileError.classList.toggle('hidden', !message);
 		els.modalOverlay.classList.add('open');
 		els.nickConfirm.disabled = true;
 
@@ -138,27 +136,9 @@
 
 	const closeNickDialog = () => {
 		els.modalOverlay.classList.remove('open');
-		moveTurnstileOffscreen();
 	};
 
-	const checkTestLimit = async () => {
-		try {
-			const res = await fetch('/api/v1/test-limit');
-			if (!res.ok) return true;
-			const data = await res.json();
-			return data.allowed !== false;
-		} catch {
-			return true;
-		}
-	};
-
-	const startNewAttempt = async () => {
-		if (await checkTestLimit()) {
-			openNickDialog();
-		} else {
-			showView('limit');
-		}
-	};
+	const startNewAttempt = () => openNickDialog({ resume: false });
 
 	const saveProgress = () => {
 		try {
@@ -214,6 +194,74 @@
 		list.push(...certs);
 		if (list.length > MAX_SAVED_CERTS) list = list.slice(list.length - MAX_SAVED_CERTS);
 		try { localStorage.setItem(CERT_STORAGE_KEY, JSON.stringify(list)); } catch { /* ... */ }
+	};
+
+	const loadLatestCertificate = () => {
+		try {
+			const raw = localStorage.getItem(CERT_STORAGE_KEY);
+			const list = raw ? JSON.parse(raw) : [];
+			if (!Array.isArray(list)) return null;
+
+			const certificate = list.slice().reverse().find(item => (
+				item && typeof item.id === 'string' && typeof item.image === 'string' &&
+				item.image.startsWith('data:image/jpeg;base64,') &&
+				!(typeof item.title === 'string' && item.title.startsWith('Skierowanie:'))
+			));
+			if (!certificate) return null;
+
+			const referral = list.find(item => (
+				item && item.id === `${certificate.id}-ref` &&
+				typeof item.image === 'string' && item.image.startsWith('data:image/jpeg;base64,')
+			));
+			return { certificate, referral: referral || null };
+		} catch {
+			return null;
+		}
+	};
+
+	const savedProgressIsComplete = () => {
+		try {
+			const raw = sessionStorage.getItem(PROGRESS_KEY);
+			if (!raw) return false;
+			const progress = JSON.parse(raw);
+			return Array.isArray(progress.order) && progress.order.length > 0 &&
+				Array.isArray(progress.answers) && progress.answers.length === progress.order.length;
+		} catch {
+			return false;
+		}
+	};
+
+	const showStoredCertificate = ({ certificate, referral }) => {
+		state.nickname = typeof certificate.nickname === 'string' ? certificate.nickname : state.nickname;
+		state.ticketNumber = typeof certificate.ticketNumber === 'string' ? certificate.ticketNumber : state.ticketNumber;
+		state.resultTitle = typeof certificate.title === 'string' ? certificate.title : '';
+		state.resultScore = Number.isFinite(certificate.score) ? certificate.score : 0;
+
+		els.resultMedia.pause();
+		els.resultMedia.removeAttribute('src');
+		els.resultMedia.load();
+		els.resultMedia.classList.add('hidden');
+		window.musicPlayer.pause();
+		els.petSection.classList.add('hidden');
+		els.certImage.src = certificate.image;
+		els.certImageStatus.classList.add('hidden');
+		els.certImageWrap.classList.remove('hidden');
+		els.downloadBtn.classList.remove('hidden');
+		els.printBtn.classList.remove('hidden');
+		els.copyBtn.classList.remove('hidden');
+		els.restartBtn.classList.remove('hidden');
+
+		if (referral) {
+			els.referralImage.src = referral.image;
+			els.referralImageWrap.classList.remove('hidden');
+			els.downloadReferralBtn.classList.remove('hidden');
+		} else {
+			els.referralImage.removeAttribute('src');
+			els.referralImageWrap.classList.add('hidden');
+			els.downloadReferralBtn.classList.add('hidden');
+		}
+
+		showView('result');
 	};
 
 	const resetBranch = () => {
@@ -303,11 +351,19 @@
 			const res = await fetch('/api/v1/certificate', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ nickname: nick, ticketNumber: state.ticketNumber, answers: answersByQuestionIndex(), turnstileToken }),
+				body: JSON.stringify({ nickname: nick, ticketNumber: state.ticketNumber, answers: answersByQuestionIndex() }),
 			});
 			const data = await res.json().catch(() => null);
+			if (res.status === 429 && data && data.code === 'test_limit_reached') {
+				closeNickDialog();
+				showView('limit');
+				return;
+			}
 			if (!res.ok || !data || !data.success) {
 				els.certImageStatus.textContent = (data && data.message) || 'Nie udało się wygenerować obrazu certyfikatu.';
+				if (data && data.code === 'test_authorization_required') {
+					openNickDialog({ resume: true, message: data.message });
+				}
 				return;
 			}
 
@@ -369,6 +425,7 @@
 
 				saveCertificates(newCerts);
 			}
+			try { sessionStorage.removeItem(PROGRESS_KEY); } catch { /* ... */ }
 		} catch {
 			els.certImageStatus.textContent = 'Nie udało się wygenerować obrazu certyfikatu.';
 		}
@@ -434,20 +491,61 @@
 	};
 
 	const confirmNick = async () => {
+		if (verificationPending || !turnstileToken) return;
+		verificationPending = true;
+		els.nickConfirm.disabled = true;
+		els.turnstileError.textContent = 'Sprawdzamy, czy nie jesteś botem...';
+		els.turnstileError.classList.remove('hidden');
+		const shouldResume = resumeAfterVerification;
 		const nick = (els.nickInput.value || '').trim() || 'Anonimowy Malkontent';
+		let verified = false;
+
+		try {
+			const res = await fetch('/api/v1/turnstile', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ turnstileToken }),
+			});
+			const data = await res.json().catch(() => null);
+			if (res.status === 429 && data && data.code === 'test_limit_reached') {
+				turnstileToken = null;
+				closeNickDialog();
+				showView('limit');
+				return;
+			}
+			if (res.status === 429) {
+				els.turnstileError.textContent = (data && data.message) || 'Zbyt wiele prób. Spróbuj ponownie za chwilę.';
+				els.nickConfirm.disabled = false;
+				return;
+			}
+			if (!res.ok || !data || !data.success) {
+				turnstileToken = null;
+				els.turnstileError.textContent = (data && data.message) || 'Weryfikacja nie powiodła się. Spróbuj ponownie.';
+				window.turnstile.reset(turnstileWidgetId);
+				return;
+			}
+			verified = true;
+		} catch {
+			els.turnstileError.textContent = 'Nie udało się połączyć z serwerem. Spróbuj ponownie.';
+			els.turnstileError.classList.remove('hidden');
+			if (turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+		} finally {
+			verificationPending = false;
+		}
+
+		if (!verified) return;
+		turnstileToken = null;
 		state.nickname = nick;
 		try { localStorage.setItem('nick', nick); } catch { /* ... */ }
 		closeNickDialog();
 
 		try {
 			await ensureQuizLoaded();
+			if (!shouldResume || !restoreProgress()) startQuiz();
 		} catch {
 			els.quizQuestion.textContent = 'Nie udało się wczytać pytań. Odśwież stronę.';
 			showView('quiz');
-			return;
 		}
-
-		startQuiz();
 	};
 
 	const downloadImage = (src, filename) => {
@@ -485,11 +583,12 @@
 	};
 
 	const init = async () => {
-		ensureQuizLoaded().catch(() => undefined);
-
 		els = queryEls();
+		if (turnstileWidgetId !== null && window.turnstile) window.turnstile.remove(turnstileWidgetId);
 		turnstileWidgetId = null;
 		turnstileToken = null;
+		verificationPending = false;
+		resumeAfterVerification = false;
 		let storedNick = '';
 		try { storedNick = localStorage.getItem('nick') || ''; } catch { /* ... */ }
 		state = {
@@ -523,6 +622,15 @@
 		els.branchYesBtn.addEventListener('click', playBranchVideo);
 		els.branchNoBtn.addEventListener('click', declineBranchVideo);
 
+		const latestCertificate = loadLatestCertificate();
+		let hasSavedProgress = false;
+		try { hasSavedProgress = Boolean(sessionStorage.getItem(PROGRESS_KEY)); } catch { /* ... */ }
+		if (latestCertificate && (!hasSavedProgress || savedProgressIsComplete())) {
+			try { sessionStorage.removeItem(PROGRESS_KEY); } catch { /* ... */ }
+			showStoredCertificate(latestCertificate);
+			return;
+		}
+
 		if (!state.nickname) {
 			await startNewAttempt();
 			return;
@@ -536,7 +644,11 @@
 			return;
 		}
 
-		if (!restoreProgress()) await startNewAttempt();
+		if (loadProgress()) {
+			openNickDialog({ resume: true });
+		} else {
+			await startNewAttempt();
+		}
 	};
 
 	window.PageRouter.register('test', init);

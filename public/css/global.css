@@ -225,6 +225,13 @@ header {
   transition: transform .15s ease, background .15s ease, border-color .15s ease;
 }
 
+a.btn-primary:hover,
+a.btn-outline:hover,
+a.btn-ghost:hover,
+a.nav-link:hover {
+  text-decoration: none;
+}
+
 .btn-primary {
   background: #b3453f;
   color: #1d1b19;
@@ -1343,12 +1350,11 @@ footer {
   margin-bottom: 22px;
 }
 
-#turnstile-keepalive {
-  position: fixed;
-  top: 0;
-  left: -9999px;
-  width: 300px;
-  height: 65px;
+.turnstile-error {
+  margin: -8px 0 20px;
+  color: #c65950;
+  font-size: 14px;
+  text-align: center;
 }
 
 .modal-actions {

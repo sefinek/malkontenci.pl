@@ -10,6 +10,7 @@ const TestResult = require('../database/models/testResult.model.js');
 
 const toDataUrl = buf => `data:image/jpeg;base64,${buf.toString('base64')}`;
 const REGENERATE_COOLDOWN_MS = 4000;
+const TEST_AUTH_MAX_AGE_MS = 2 * 60 * 60 * 1000;
 const STATS_DAYS = 30;
 const TEST_LIMIT_HOUR_MAX = 2;
 const TEST_LIMIT_HOUR_WINDOW_S = 60 * 60;
@@ -24,9 +25,9 @@ const incrWithExpiry = async (key, windowS) => {
 };
 
 const peekTestLimit = async ip => {
-	const [hourCount, weekCount] = await Promise.all([
-		RedisClient.get(`malkontencipl:test-limit:hour:${ip}`),
-		RedisClient.get(`malkontencipl:test-limit:week:${ip}`),
+	const [hourCount, weekCount] = await RedisClient.mGet([
+		`malkontencipl:test-limit:hour:${ip}`,
+		`malkontencipl:test-limit:week:${ip}`,
 	]);
 	return Number(hourCount) < TEST_LIMIT_HOUR_MAX && Number(weekCount) < TEST_LIMIT_WEEK_MAX;
 };
@@ -41,26 +42,41 @@ const verifyTurnstile = async (token, ip) => {
 
 	try {
 		const { data } = await axios.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', new URLSearchParams({ secret: TURNSTILE_SECRET_KEY, response: token, remoteip: ip }));
+		if (data.success !== true) {
+			const errors = Array.isArray(data['error-codes']) ? data['error-codes'] : [];
+			console.warn('[turnstile] validation failed:', errors.join(', ') || 'unknown-error');
+		}
 		return data.success === true;
 	} catch (err) {
-		console.log('[turnstile] request failed:', err.stack);
+		console.error('[turnstile] request failed:', err.message);
 		return false;
 	}
+};
+
+const hasTestAuthorization = req => {
+	const verifiedAt = req.session.testAuthorizedAt;
+	return Number.isFinite(verifiedAt) && Date.now() - verifiedAt < TEST_AUTH_MAX_AGE_MS;
 };
 
 const QUESTIONS_PAYLOAD = { success: true, status: 200, questions: PUBLIC_QUESTIONS };
 
 router.get('/questions', (req, res) => {
-	res.set('Cache-Control', 'public, max-age=3600');
+	res.set('Cache-Control', 'no-store');
 	res.json(QUESTIONS_PAYLOAD);
 });
 
-router.get('/test-limit', async (req, res) => {
-	res.json({ success: true, status: 200, allowed: await peekTestLimit(req.ip) });
+router.post('/turnstile', certificateLimiter, async (req, res) => {
+	const { turnstileToken } = req.body || {};
+
+	if (!(await peekTestLimit(req.ip))) return ApiError(res, 429, null, 'Osiągnięto limit testów. Spróbuj ponownie później.', 'test_limit_reached');
+	if (!(await verifyTurnstile(turnstileToken, req.ip))) return ApiError(res, 400, null, 'Weryfikacja Cloudflare Turnstile nie powiodła się. Spróbuj ponownie.', 'turnstile_failed');
+
+	req.session.testAuthorizedAt = Date.now();
+	res.json({ success: true, status: 200 });
 });
 
 router.post('/certificate', certificateLimiter, async (req, res) => {
-	const { nickname, ticketNumber, answers, turnstileToken } = req.body || {};
+	const { nickname, ticketNumber, answers } = req.body || {};
 
 	if (typeof ticketNumber !== 'string' || !(/^\d{4}$/).test(ticketNumber)) return ApiError(res, 400);
 	if (nickname !== undefined && (typeof nickname !== 'string' || nickname.length > 24)) return ApiError(res, 400);
@@ -73,9 +89,9 @@ router.post('/certificate', certificateLimiter, async (req, res) => {
 	const cached = req.session.cert;
 	const isSameKey = Boolean(cached && cached.key === key);
 
-	if (!isSameKey && !(await peekTestLimit(req.ip))) return ApiError(res, 429, null, 'Osiągnięto limit testów. Spróbuj ponownie później..');
+	if (!isSameKey && !(await peekTestLimit(req.ip))) return ApiError(res, 429, null, 'Osiągnięto limit testów. Spróbuj ponownie później.', 'test_limit_reached');
 	if (!isSameKey && cached && Date.now() - cached.at < REGENERATE_COOLDOWN_MS) return ApiError(res, 429);
-	if (!isSameKey && !(await verifyTurnstile(turnstileToken, req.ip))) return ApiError(res, 400, null, 'Weryfikacja Cloudflare Turnstile (anty-botowa) nie powiodła się. Odśwież stronę i spróbuj ponownie.');
+	if (!isSameKey && !hasTestAuthorization(req)) return ApiError(res, 403, null, 'Sesja weryfikacji wygasła. Potwierdź ponownie, że nie jesteś botem.', 'test_authorization_required');
 
 	try {
 		const arch = getArchetype(score);
@@ -86,6 +102,7 @@ router.post('/certificate', certificateLimiter, async (req, res) => {
 
 		if (!isSameKey) {
 			req.session.cert = { key, at: Date.now() };
+			delete req.session.testAuthorizedAt;
 			TestResult.create({ score, archetype: arch.title }).catch(err => console.error('Failed to save test result to statistics:', err));
 			consumeTestLimit(req.ip).catch(err => console.error('Failed to update test limit:', err));
 		}
