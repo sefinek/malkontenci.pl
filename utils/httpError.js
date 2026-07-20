@@ -11,12 +11,6 @@ const PAGE_MESSAGES = {
 	503: 'Serwer jest chwilowo niedostępny. Spróbuj ponownie za chwilę.',
 };
 
-const ApiError = (res, status, err, msg) => {
-	if (err) console.error(err);
-
-	res.status(status).json({ success: false, status, message: msg || API_MESSAGES[status] || 'Wystąpił nieznany błąd. Zgłoś go proszę na contact@sefinek.net' });
-};
-
 const RenderError = (res, status, err) => {
 	if (err) console.error(err);
 
@@ -26,4 +20,10 @@ const RenderError = (res, status, err) => {
 	});
 };
 
-module.exports = { ApiError, RenderError };
+const ApiError = (res, status, err, msg) => {
+	if (err) console.error(err);
+
+	res.status(status).json({ success: false, status, message: msg || API_MESSAGES[status] || 'Wystąpił nieznany błąd. Zgłoś go proszę na contact@sefinek.net' });
+};
+
+module.exports = { RenderError, ApiError };

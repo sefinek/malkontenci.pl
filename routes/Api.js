@@ -73,7 +73,7 @@ router.post('/certificate', certificateLimiter, async (req, res) => {
 	const cached = req.session.cert;
 	const isSameKey = Boolean(cached && cached.key === key);
 
-	if (!isSameKey && !(await peekTestLimit(req.ip))) return ApiError(res, 429, null, 'Osiągnięto limit testów. Spróbuj ponownie później.');
+	if (!isSameKey && !(await peekTestLimit(req.ip))) return ApiError(res, 429, null, 'Osiągnięto limit testów. Spróbuj ponownie później. Jeśli nudzi się tobie, możesz pogadać z nami na Discordzie. Zaproszenie znajdziesz na stronie sefinek.net.');
 	if (!isSameKey && cached && Date.now() - cached.at < REGENERATE_COOLDOWN_MS) return ApiError(res, 429);
 	if (!isSameKey && !(await verifyTurnstile(turnstileToken, req.ip))) return ApiError(res, 400, null, 'Weryfikacja Cloudflare Turnstile (anty-botowa) nie powiodła się. Odśwież stronę i spróbuj ponownie.');
 
