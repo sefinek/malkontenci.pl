@@ -18,7 +18,7 @@
         <p class="sub1">Przejdź test, a następnie spróbujemy cię wyleczyć.</p>
         <p class="sub2">Rozumiemy, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
       <% } %>
-      <a id="start-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeURIComponent(dla)}` : '' %>">Rozpocznij diagnozę</a>
+      <a id="start-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeName(dla)}` : '' %>">Rozpocznij diagnozę</a>
 
       <div class="share-box">
         <div class="share-box-label">Podeślij tę stronę innemu malkontentowi</div>
@@ -159,7 +159,7 @@
   <section class="cta-section view">
     <h3>Nadal uważasz, że problem dotyczy innych?</h3>
     <p>To typowe. Test zajmie około 4 minut i da ci wynik, z którym prawdopodobnie również się nie zgodzisz.</p>
-    <a id="cta-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeURIComponent(dla)}` : '' %>">Rozpocznij badanie</a>
+    <a id="cta-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeName(dla)}` : '' %>">Rozpocznij badanie</a>
   </section>
 </main>
 

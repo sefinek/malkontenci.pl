@@ -12,16 +12,27 @@
 	let turnstileToken = null;
 	let turnstileWidgetId = null;
 
+	const fromBase64Url = str => {
+		const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+		const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+		return atob(padded);
+	};
+
+	const moveTurnstileToModal = () => {
+		const container = document.getElementById('turnstile-widget');
+		if (container && els.modalActions) els.modalActions.parentElement.insertBefore(container, els.modalActions);
+	};
+
+	const moveTurnstileOffscreen = () => {
+		const container = document.getElementById('turnstile-widget');
+		const keepalive = document.getElementById('turnstile-keepalive');
+		if (container && keepalive) keepalive.appendChild(container);
+	};
+
 	const initTurnstile = () => {
 		const container = document.getElementById('turnstile-widget');
-		if (!container || !window.turnstile) return;
+		if (!container || !window.turnstile || turnstileWidgetId !== null) return;
 
-		if (turnstileWidgetId !== null) {
-			window.turnstile.remove(turnstileWidgetId);
-			turnstileWidgetId = null;
-		}
-
-		turnstileToken = null;
 		turnstileWidgetId = window.turnstile.render(container, {
 			sitekey: container.dataset.sitekey,
 			'refresh-expired': 'auto',
@@ -38,12 +49,6 @@
 				els.nickConfirm.disabled = true;
 			},
 		});
-	};
-
-	const resetTurnstile = () => {
-		turnstileToken = null;
-		els.nickConfirm.disabled = true;
-		if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
 	};
 
 	const loadQuiz = async () => {
@@ -75,6 +80,7 @@
 	const queryEls = () => ({
 		viewQuiz: document.getElementById('view-quiz'),
 		viewResult: document.getElementById('view-result'),
+		viewLimit: document.getElementById('view-limit'),
 		petSection: document.getElementById('pet-section'),
 		petQuestion: document.getElementById('pet-question'),
 		petAnswers: document.getElementById('pet-answers'),
@@ -96,6 +102,7 @@
 		copyBtn: document.getElementById('copy-btn'),
 		restartBtn: document.getElementById('restart-btn'),
 		modalOverlay: document.getElementById('nick-modal'),
+		modalActions: document.getElementById('modal-actions'),
 		nickInput: document.getElementById('nick-input'),
 		nickConfirm: document.getElementById('nick-confirm'),
 		certImageStatus: document.getElementById('cert-image-status'),
@@ -111,16 +118,46 @@
 	const showView = view => {
 		els.viewQuiz.classList.toggle('hidden', view !== 'quiz');
 		els.viewResult.classList.toggle('hidden', view !== 'result');
+		els.viewLimit.classList.toggle('hidden', view !== 'limit');
 		window.scrollTo({ top: 0, behavior: 'instant' });
 	};
 
 	const openNickDialog = () => {
-		els.nickInput.value = state.nickname || state.targetName || '';
+		els.nickInput.value = state.targetName || state.nickname || '';
+		moveTurnstileToModal();
 		els.modalOverlay.classList.add('open');
+		els.nickConfirm.disabled = true;
+
+		if (turnstileWidgetId === null) {
+			initTurnstile();
+		} else {
+			turnstileToken = null;
+			window.turnstile.reset(turnstileWidgetId);
+		}
 	};
 
 	const closeNickDialog = () => {
 		els.modalOverlay.classList.remove('open');
+		moveTurnstileOffscreen();
+	};
+
+	const checkTestLimit = async () => {
+		try {
+			const res = await fetch('/api/v1/test-limit');
+			if (!res.ok) return true;
+			const data = await res.json();
+			return data.allowed !== false;
+		} catch {
+			return true;
+		}
+	};
+
+	const startNewAttempt = async () => {
+		if (await checkTestLimit()) {
+			openNickDialog();
+		} else {
+			showView('limit');
+		}
 	};
 
 	const saveProgress = () => {
@@ -259,6 +296,8 @@
 		els.referralImageWrap.classList.add('hidden');
 		els.downloadReferralBtn.classList.add('hidden');
 		els.printBtn.classList.add('hidden');
+		els.copyBtn.classList.add('hidden');
+		els.restartBtn.classList.add('hidden');
 
 		try {
 			const res = await fetch('/api/v1/certificate', {
@@ -274,6 +313,8 @@
 
 			state.resultTitle = data.title;
 			state.resultScore = data.score;
+			els.copyBtn.classList.remove('hidden');
+			els.restartBtn.classList.remove('hidden');
 
 			if (data.media) {
 				els.resultMedia.src = data.media;
@@ -427,11 +468,10 @@
 		window.musicPlayer.resume();
 	};
 
-	const restart = () => {
+	const restart = async () => {
 		els.copyBtn.textContent = 'Skopiuj wynik';
 		resetResultMedia();
-		resetTurnstile();
-		openNickDialog();
+		await startNewAttempt();
 	};
 
 	const copyResult = () => {
@@ -448,7 +488,8 @@
 		ensureQuizLoaded().catch(() => undefined);
 
 		els = queryEls();
-		initTurnstile();
+		turnstileWidgetId = null;
+		turnstileToken = null;
 		let storedNick = '';
 		try { storedNick = localStorage.getItem('nick') || ''; } catch { /* ... */ }
 		state = {
@@ -466,7 +507,11 @@
 
 		const params = new URLSearchParams(window.location.search);
 		const target = params.get('dla');
-		if (target) state.targetName = target.trim().slice(0, 24);
+		if (target) {
+			try {
+				state.targetName = fromBase64Url(target).trim().slice(0, 24);
+			} catch { /* ... */ }
+		}
 
 		els.nickConfirm.addEventListener('click', confirmNick);
 		els.nickInput.addEventListener('keydown', e => { if (e.key === 'Enter') confirmNick(); });
@@ -479,7 +524,7 @@
 		els.branchNoBtn.addEventListener('click', declineBranchVideo);
 
 		if (!state.nickname) {
-			openNickDialog();
+			await startNewAttempt();
 			return;
 		}
 
@@ -491,7 +536,7 @@
 			return;
 		}
 
-		if (!restoreProgress()) openNickDialog();
+		if (!restoreProgress()) await startNewAttempt();
 	};
 
 	window.PageRouter.register('test', init);

@@ -11,10 +11,10 @@ const PAGE_MESSAGES = {
 	503: 'Serwer jest chwilowo niedostępny. Spróbuj ponownie za chwilę.',
 };
 
-const ApiError = (res, status, err) => {
+const ApiError = (res, status, err, msg) => {
 	if (err) console.error(err);
 
-	res.status(status).json({ success: false, status, message: API_MESSAGES[status] || 'Wystąpił błąd.' });
+	res.status(status).json({ success: false, status, message: msg || API_MESSAGES[status] || 'Wystąpił nieznany błąd. Zgłoś go proszę na contact@sefinek.net' });
 };
 
 const RenderError = (res, status, err) => {

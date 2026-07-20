@@ -23,6 +23,13 @@
     </section>
   </div>
 
+  <div id="view-limit" class="hidden">
+    <section class="result-section">
+      <div class="cert-image-status">Osiągnięto limit testów. Spróbuj ponownie później.</div>
+      <div class="cert-image-link"><a class="nav-link" href="/moje-certyfikaty">Wyświetl wszystkie moje certyfikaty →</a></div>
+    </section>
+  </div>
+
   <div id="view-result" class="hidden">
     <section class="result-section">
       <div class="cert-image-status" id="cert-image-status">Oczekiwanie na JavaScript...</div>
@@ -38,11 +45,11 @@
       </div>
 
       <div class="result-actions">
-        <button id="copy-btn" class="btn-outline wide" type="button">Skopiuj wynik</button>
+        <button id="copy-btn" class="btn-outline wide hidden" type="button">Skopiuj wynik</button>
         <button id="download-btn" class="btn-outline wide hidden" type="button">Pobierz certyfikat</button>
         <button id="download-referral-btn" class="btn-outline wide hidden" type="button">Pobierz skierowanie</button>
         <button id="print-btn" class="btn-outline wide hidden" type="button">Drukuj</button>
-        <button id="restart-btn" class="btn-primary small" type="button">Powtórz diagnozę</button>
+        <button id="restart-btn" class="btn-primary small hidden" type="button">Powtórz diagnozę</button>
       </div>
       <div class="cert-image-link"><a class="nav-link" href="/moje-certyfikaty">Wyświetl wszystkie moje certyfikaty →</a></div>
 
@@ -74,12 +81,14 @@
       <p>Podaj swoje imię lub nazwę użytkownika. Informacja ta posłuży do wygenerowania certyfikatu (obraz jpg). W ostateczności wystawiamy również skierowanie do Choroszczy. Podana nazwa zostanie zapamiętana w tej przeglądarce. Po ukończeniu testu nie będzie dalej przetwarzana przez serwer. Nie podawaj tutaj swoich danych osobowych. Powodzenia!</p>
       <input type="text" id="nick-input" placeholder="np. HiVeR" maxlength="24">
       <div id="turnstile-widget" class="turnstile-widget" data-sitekey="<%= process.env.NODE_ENV === 'production' ? process.env.TURNSTILE_SITE_KEY : '1x00000000000000000000AA' %>"></div>
-      <div class="modal-actions">
+      <div class="modal-actions" id="modal-actions">
         <a href="/" class="btn-ghost">Anuluj</a>
         <button id="nick-confirm" class="btn-primary modal-confirm" type="button" disabled>Rozpocznij</button>
       </div>
     </div>
   </div>
+
+  <div id="turnstile-keepalive"></div>
 </main>
 
 <%- include('./includes/footer.ejs', { scripts: ['/js/test.js', 'https://challenges.cloudflare.com/turnstile/v0/api.js'] }) %>

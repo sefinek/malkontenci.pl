@@ -1,12 +1,14 @@
 (() => {
 	let els;
 
+	const toBase64Url = str => btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
 	const generateShareLink = () => {
 		const name = (els.shareInput.value || '').trim();
 		if (!name) return;
 		const url = new URL(window.location.href);
 		url.search = '';
-		url.searchParams.set('dla', btoa(name));
+		url.searchParams.set('dla', toBase64Url(name));
 		const link = url.toString();
 		els.shareLink.textContent = link;
 		els.shareLink.classList.add('visible');
