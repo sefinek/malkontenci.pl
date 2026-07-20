@@ -26,6 +26,7 @@ const ApiError = (res, status, err, msg, code) => {
 	res.status(status).json({
 		success: false,
 		status,
+
 		message: msg || API_MESSAGES[status] || 'Wystąpił nieznany błąd. Zgłoś go proszę na contact@sefinek.net',
 		...(code ? { code } : {}),
 	});

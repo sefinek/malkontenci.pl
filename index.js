@@ -10,7 +10,7 @@ const timeout = require('./middlewares/timeout.js');
 const logger = require('./middlewares/morgan.js');
 const { globalLimiter } = require('./middlewares/ratelimit.js');
 const session = require('./middlewares/session.js');
-const { RenderError } = require('./utils/httpError.js');
+const { RenderError } = require('./utils/errors.js');
 
 // Mongoose & passport initialization
 require('./database/mongoose.js');

@@ -1,5 +1,5 @@
 const rateLimit = require('express-rate-limit');
-const { ApiError, RenderError } = require('../utils/httpError.js');
+const { ApiError, RenderError } = require('../utils/errors.js');
 
 const globalLimiter = rateLimit({
 	windowMs: 40 * 1000,
