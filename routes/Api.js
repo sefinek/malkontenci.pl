@@ -141,7 +141,7 @@ router.get('/stats', async (req, res) => {
 						{ $group: { _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } }, count: { $sum: 1 } } },
 					],
 					byArchetype: [
-						{ $group: { _id: '$archetype', count: { $sum: 1 } } },
+						{ $group: { _id: '$score', count: { $sum: 1 } } },
 					],
 					avgScore: [
 						{ $group: { _id: null, avg: { $avg: '$score' } } },
@@ -167,9 +167,13 @@ router.get('/stats', async (req, res) => {
 			byDay.push({ date: key, count: dayCounts.get(key) || 0 });
 		}
 
-		const archetypeCounts = new Map(facet.byArchetype.map(a => [a._id, a.count]));
+		const archetypeCounts = new Map(ARCHETYPE_TITLES.map(title => [title, 0]));
+		for (const item of facet.byArchetype) {
+			const title = getArchetype(item._id).title;
+			archetypeCounts.set(title, archetypeCounts.get(title) + item.count);
+		}
 		const byArchetype = ARCHETYPE_TITLES.map(title => {
-			const count = archetypeCounts.get(title) || 0;
+			const count = archetypeCounts.get(title);
 			return { title, count, percent: total ? Math.round((count / total) * 1000) / 10 : 0 };
 		});
 

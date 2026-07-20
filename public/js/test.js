@@ -184,39 +184,46 @@
 		return answers;
 	};
 
-	const saveCertificates = certs => {
-		let list;
-		try {
-			const raw = localStorage.getItem(CERT_STORAGE_KEY);
-			list = raw ? JSON.parse(raw) : [];
-			if (!Array.isArray(list)) list = [];
-		} catch { list = []; }
-		list.push(...certs);
-		if (list.length > MAX_SAVED_CERTS) list = list.slice(list.length - MAX_SAVED_CERTS);
-		try { localStorage.setItem(CERT_STORAGE_KEY, JSON.stringify(list)); } catch { /* ... */ }
-	};
-
-	const loadLatestCertificate = () => {
+	const loadCertificates = () => {
 		try {
 			const raw = localStorage.getItem(CERT_STORAGE_KEY);
 			const list = raw ? JSON.parse(raw) : [];
-			if (!Array.isArray(list)) return null;
-
-			const certificate = list.slice().reverse().find(item => (
-				item && typeof item.id === 'string' && typeof item.image === 'string' &&
-				item.image.startsWith('data:image/jpeg;base64,') &&
-				!(typeof item.title === 'string' && item.title.startsWith('Skierowanie:'))
-			));
-			if (!certificate) return null;
-
-			const referral = list.find(item => (
-				item && item.id === `${certificate.id}-ref` &&
-				typeof item.image === 'string' && item.image.startsWith('data:image/jpeg;base64,')
-			));
-			return { certificate, referral: referral || null };
+			return Array.isArray(list) ? list : [];
 		} catch {
-			return null;
+			return [];
 		}
+	};
+
+	const saveCertificates = certs => {
+		let list = loadCertificates();
+		list.push(...certs);
+		if (list.length > MAX_SAVED_CERTS) list = list.slice(list.length - MAX_SAVED_CERTS);
+
+		while (list.length) {
+			try {
+				localStorage.setItem(CERT_STORAGE_KEY, JSON.stringify(list));
+				return;
+			} catch (err) {
+				if (err.name !== 'QuotaExceededError' && err.name !== 'NS_ERROR_DOM_QUOTA_REACHED') return;
+				list.shift();
+			}
+		}
+	};
+
+	const loadLatestCertificate = () => {
+		const list = loadCertificates();
+		const certificate = list.slice().reverse().find(item => (
+			item && typeof item.id === 'string' && typeof item.image === 'string' &&
+			item.image.startsWith('data:image/jpeg;base64,') &&
+			!(typeof item.title === 'string' && item.title.startsWith('Skierowanie:'))
+		));
+		if (!certificate) return null;
+
+		const referral = list.find(item => (
+			item && item.id === `${certificate.id}-ref` &&
+			typeof item.image === 'string' && item.image.startsWith('data:image/jpeg;base64,')
+		));
+		return { certificate, referral: referral || null };
 	};
 
 	const savedProgressIsComplete = () => {
@@ -228,6 +235,26 @@
 				Array.isArray(progress.answers) && progress.answers.length === progress.order.length;
 		} catch {
 			return false;
+		}
+	};
+
+	const displayCertificateImages = (certificate, referral) => {
+		els.certImage.src = certificate;
+		els.certImageStatus.classList.add('hidden');
+		els.certImageWrap.classList.remove('hidden');
+		els.downloadBtn.classList.remove('hidden');
+		els.printBtn.classList.remove('hidden');
+		els.copyBtn.classList.remove('hidden');
+		els.restartBtn.classList.remove('hidden');
+
+		if (referral) {
+			els.referralImage.src = referral;
+			els.referralImageWrap.classList.remove('hidden');
+			els.downloadReferralBtn.classList.remove('hidden');
+		} else {
+			els.referralImage.removeAttribute('src');
+			els.referralImageWrap.classList.add('hidden');
+			els.downloadReferralBtn.classList.add('hidden');
 		}
 	};
 
@@ -243,24 +270,7 @@
 		els.resultMedia.classList.add('hidden');
 		window.musicPlayer.pause();
 		els.petSection.classList.add('hidden');
-		els.certImage.src = certificate.image;
-		els.certImageStatus.classList.add('hidden');
-		els.certImageWrap.classList.remove('hidden');
-		els.downloadBtn.classList.remove('hidden');
-		els.printBtn.classList.remove('hidden');
-		els.copyBtn.classList.remove('hidden');
-		els.restartBtn.classList.remove('hidden');
-
-		if (referral) {
-			els.referralImage.src = referral.image;
-			els.referralImageWrap.classList.remove('hidden');
-			els.downloadReferralBtn.classList.remove('hidden');
-		} else {
-			els.referralImage.removeAttribute('src');
-			els.referralImageWrap.classList.add('hidden');
-			els.downloadReferralBtn.classList.add('hidden');
-		}
-
+		displayCertificateImages(certificate.image, referral && referral.image);
 		showView('result');
 	};
 
@@ -369,8 +379,6 @@
 
 			state.resultTitle = data.title;
 			state.resultScore = data.score;
-			els.copyBtn.classList.remove('hidden');
-			els.restartBtn.classList.remove('hidden');
 
 			if (data.media) {
 				els.resultMedia.src = data.media;
@@ -379,22 +387,12 @@
 				els.resultMedia.play().catch(() => undefined);
 			}
 
-			els.certImage.src = data.certificate;
-			els.certImageStatus.classList.add('hidden');
-			els.certImageWrap.classList.remove('hidden');
-			els.downloadBtn.classList.remove('hidden');
-			els.printBtn.classList.remove('hidden');
+			displayCertificateImages(data.certificate, data.referral);
 			if (data.pet) {
 				PET_QUESTION = data.pet;
 				renderPetQuestion();
 			} else {
 				els.petSection.classList.add('hidden');
-			}
-
-			if (data.referral) {
-				els.referralImage.src = data.referral;
-				els.referralImageWrap.classList.remove('hidden');
-				els.downloadReferralBtn.classList.remove('hidden');
 			}
 
 			if (!data.cached) {

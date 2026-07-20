@@ -21,7 +21,7 @@ const ARCHETYPES = [
 		min: 49,
 		max: 70,
 		title: 'Malkontent etatowy',
-		diagnosis: 'Frustracja stała się dla ciebie codziennością operacyjną. Masz przygotowane riposty, wzdychasz z wyczuciem rytmu, a każda kolejka w sklepie staje się materiałem na późniejszą anegdotę. Przesłanie na dziś: "Don\'t worry, be happy".',
+		diagnosis: 'Frustracja stała się dla ciebie codziennością operacyjną. Masz przygotowane riposty, wzdychasz z wyczuciem rytmu, a każda kolejka w sklepie staje się materiałem na późniejszą anegdotę. Nie jest to jeszcze najgorszy typ malkontenta, ale zdecydowanie warto popracować nad sobą. W przeciwnym razie może być co raz gorzej i gorzej. Przesłanie na dziś: "Don\'t worry, be happy".',
 		treatment: 'Po przebudzeniu daj sobie 5-10 minut na przemyślenie swojej egzystencji, życia i planów na przyszłość. Następnie spokojnie wypij kawę. Stopniowo ograniczaj korzystanie z internetu, szczególnie z Wykopu i Reddita.',
 		media: '/video/AWnXww7y5r4.mp4',
 	},
