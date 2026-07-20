@@ -14,8 +14,14 @@
 
 	const initTurnstile = () => {
 		const container = document.getElementById('turnstile-widget');
-		if (!container || !window.turnstile || turnstileWidgetId !== null) return;
+		if (!container || !window.turnstile) return;
 
+		if (turnstileWidgetId !== null) {
+			window.turnstile.remove(turnstileWidgetId);
+			turnstileWidgetId = null;
+		}
+
+		turnstileToken = null;
 		turnstileWidgetId = window.turnstile.render(container, {
 			sitekey: container.dataset.sitekey,
 			'refresh-expired': 'auto',

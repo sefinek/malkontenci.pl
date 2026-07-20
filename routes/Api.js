@@ -4,8 +4,9 @@ const { generateCertificate, generateReferral } = require('../utils/certificate.
 const { ARCHETYPE_TITLES, getArchetype } = require('../utils/archetypes.js');
 const { PET_QUESTION, PUBLIC_QUESTIONS, computeScore } = require('../utils/quiz.js');
 const { ApiError } = require('../utils/httpError.js');
-const TestResult = require('../database/models/testResult.model.js');
+const axios = require('../services/axios.js');
 const RedisClient = require('../services/redis.js');
+const TestResult = require('../database/models/testResult.model.js');
 
 const toDataUrl = buf => `data:image/jpeg;base64,${buf.toString('base64')}`;
 const REGENERATE_COOLDOWN_MS = 4000;
@@ -39,12 +40,7 @@ const verifyTurnstile = async (token, ip) => {
 	if (typeof token !== 'string' || !token) return false;
 
 	try {
-		const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: new URLSearchParams({ secret: TURNSTILE_SECRET_KEY, response: token, remoteip: ip }),
-		});
-		const data = await res.json();
+		const { data } = await axios.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', new URLSearchParams({ secret: TURNSTILE_SECRET_KEY, response: token, remoteip: ip }));
 		return data.success === true;
 	} catch {
 		return false;
