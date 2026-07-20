@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const TestResultSchema = new Schema({
 	score: { type: Number, required: true, min: 0, max: 100 },
 	archetype: { type: String, required: true },
-}, { timestamps: { createdAt: true, updatedAt: false } });
+}, { _id: false, timestamps: { createdAt: true, updatedAt: false }, versionKey: false });
 
 TestResultSchema.index({ createdAt: -1 });
 
