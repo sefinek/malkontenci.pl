@@ -13,7 +13,7 @@ const QUESTIONS = [
 				's': 1,
 			},
 			{
-				't': 'Komentuję pod nosem, że gościu chyba prawo jazdy w chipsach wygrał.',
+				't': 'Komentuję pod nosem, że gościu chyba wygrał prawo jazdy w chipsach.',
 				's': 2,
 			},
 			{
