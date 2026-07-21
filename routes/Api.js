@@ -7,6 +7,7 @@ const { ApiError } = require('../utils/errors.js');
 const axios = require('../services/axios.js');
 const RedisClient = require('../services/redis.js');
 const TestResult = require('../database/models/testResult.model.js');
+const { SECRET_KEY: TURNSTILE_SECRET_KEY } = require('../utils/turnstile.js');
 
 const toDataUrl = buf => `data:image/jpeg;base64,${buf.toString('base64')}`;
 const REGENERATE_COOLDOWN_MS = 4000;
@@ -23,7 +24,6 @@ const TEST_LIMIT_HOUR_MAX = 2;
 const TEST_LIMIT_HOUR_WINDOW_S = 60 * 60;
 const TEST_LIMIT_WEEK_MAX = 5;
 const TEST_LIMIT_WEEK_WINDOW_S = 7 * 24 * 60 * 60;
-const TURNSTILE_SECRET_KEY = process.env.NODE_ENV === 'production' ? process.env.TURNSTILE_SECRET_KEY : '1x0000000000000000000000000000000AA';
 
 const incrWithExpiry = async (key, windowS) => {
 	await RedisClient.set(key, 0, { EX: windowS, NX: true });

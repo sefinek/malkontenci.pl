@@ -34,5 +34,5 @@ window.CertStore = (() => {
 		}
 	};
 
-	return { load, save, append, MAX_SAVED_CERTS };
+	return { load, save, append };
 })();

@@ -25,7 +25,20 @@ app.locals.domain = DOMAIN;
 app.locals.version = version;
 
 // Use middlewares
-app.use(helmet({ crossOriginResourcePolicy: false, contentSecurityPolicy: false }));
+app.use(helmet({
+	crossOriginResourcePolicy: false,
+	contentSecurityPolicy: {
+		directives: {
+			...helmet.contentSecurityPolicy.getDefaultDirectives(),
+			'script-src': ['\'self\'', 'https://cdn.sefinek.net', 'https://challenges.cloudflare.com'],
+			'style-src': ['\'self\'', 'https://fonts.googleapis.com'],
+			'font-src': ['\'self\'', 'https://fonts.gstatic.com'],
+			'img-src': ['\'self\'', 'data:'],
+			'connect-src': ['\'self\'', 'https://challenges.cloudflare.com'],
+			'frame-src': ['https://challenges.cloudflare.com'],
+		},
+	},
+}));
 app.use(express.static('public'));
 app.use(express.json({ limit: '8kb' }));
 app.use(logger);
