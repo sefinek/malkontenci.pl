@@ -2,22 +2,22 @@ const { MAX_SCORE } = require('./archetypes.js');
 
 const QUESTIONS = [
 	{
-		'q': 'Twój internet przestaje działać w środku ważnego spotkania online.',
+		'q': 'Ktoś zajeżdża ci drogę bez kierunkowskazu.',
 		'a': [
 			{
-				't': 'Spokojnie przełączam się na internet w telefonie i wracam do rozmowy.',
+				't': 'Zwalniam i jadę dalej. Szkoda nerwów.',
 				's': 0,
 			},
 			{
-				't': 'Wzdycham, próbuję ponownie się połączyć i czekam na powrót sieci.',
+				't': 'Trąbię krótko i przez chwilę jestem wkurzony.',
 				's': 1,
 			},
 			{
-				't': 'Piszę na czacie, że internet znowu nie działa i że zawsze musi się to zdarzyć w najgorszym momencie.',
+				't': 'Komentuję pod nosem, że gościu chyba prawo jazdy w chipsach wygrał.',
 				's': 2,
 			},
 			{
-				't': 'Dzwonię do operatora i robię awanturę, wyliczając wszystkie wcześniejsze awarie.',
+				't': 'Przez resztę trasy wyłapuję każdy błąd innych kierowców i narzekam, że dziś nikt nie potrafi jeździć.',
 				's': 3,
 			},
 		],
@@ -30,11 +30,11 @@ const QUESTIONS = [
 				's': 0,
 			},
 			{
-				't': 'Sprawdzam godzinę, kręcę głową i ciężko wzdycham.',
+				't': 'Sprawdzam godzinę, kręcę głową, idę spać dalej.',
 				's': 1,
 			},
 			{
-				't': 'Biorę miotłę i pukam w sufit. Może zrozumie aluzję.',
+				't': 'Wale kijem od miotły w sufit przeklinając przy tym. Jeśli nie pomaga, dobijam się do niego pod drzwiami.',
 				's': 2,
 			},
 			{
@@ -47,15 +47,15 @@ const QUESTIONS = [
 		'q': 'Windows zaczyna się aktualizować i uruchamia ponownie w trakcie pracy.',
 		'a': [
 			{
-				't': 'Czekam, aż aktualizacja się zakończy. Trudno, zdarza się. To w końcu Windows.',
+				't': 'Czekam, aż aktualizacja się zakończy. Trudno, przecież to w końcu Windows.',
 				's': 0,
 			},
 			{
-				't': 'Przeklinam pod nosem, a potem wracam do pracy.',
+				't': 'Wyłączam aktualizacje na kolejne 7 dni, żeby Windows więcej mnie nie zaskoczył.',
 				's': 1,
 			},
 			{
-				't': 'Wyłączam aktualizacje na kolejne 7 dni, żeby Windows więcej mnie nie zaskoczył.',
+				't': 'Przeklinam pod nosem i liczę, że wszystko się zapisało.',
 				's': 2,
 			},
 			{
@@ -80,16 +80,16 @@ const QUESTIONS = [
 				's': 2,
 			},
 			{
-				't': 'Natychmiast składam reklamację, narzekam rodzinie i ogłaszam, że tej firmie już nigdy nie można zaufać.',
+				't': 'Natychmiast składam reklamację. Po jej złożeniu piszę swoje żale na Wykopie.',
 				's': 3,
 			},
 		],
 	},
 	{
-		'q': 'Ktoś na forum pisze, że ma problem z BIOS-em w komputerze. Nie interesuje się informatyką i słabo zna się na sprzęcie.',
+		'q': 'Ktoś na forum pisze, że ma problem z BIOS-em w komputerze. Ta osoba nie interesuje się informatyką, dość słabo zna się na sprzęcie.',
 		'a': [
 			{
-				't': 'Spokojnie mu pomagam i podaję kilka prostych wskazówek.',
+				't': 'Spokojnie mu pomagam i podaję kilka prostych wskazówek. Ostrzegam, czego lepiej nie zmieniać.',
 				's': 0,
 			},
 			{
@@ -114,7 +114,7 @@ const QUESTIONS = [
 				's': 0,
 			},
 			{
-				't': 'Sięgam po swoją zapasową paczkę kawy.',
+				't': 'Sięgam po swoją zapasową.',
 				's': 1,
 			},
 			{
@@ -149,22 +149,22 @@ const QUESTIONS = [
 		],
 	},
 	{
-		'q': 'Ktoś zajmuje ostatnie wolne miejsce parkingowe tuż przed tobą.',
+		'q': 'Czekasz z kierunkowskazem na zwalniające się miejsce parkingowe, ale ktoś wjeżdża w nie od drugiej strony.',
 		'a': [
 			{
-				't': 'Szukam innego miejsca. Trudno, był pierwszy.',
+				't': 'Odjeżdżam i szukam innego miejsca. Nie będę się kłócić o parking.',
 				's': 0,
 			},
 			{
-				't': 'Wzdycham i jadę szukać miejsca dalej.',
+				't': 'Pokazuję kierowcy, że czekałem. Jeśli nie reaguje - odpuszczam.',
 				's': 1,
 			},
 			{
-				't': 'Narzekam pod nosem, że zawsze ktoś musi mnie ubiec.',
+				't': 'Wysiadam i mówię mu, co o tym myślę, używając przy tym wulgarnych słów.',
 				's': 2,
 			},
 			{
-				't': 'Przez resztę dnia opowiadam wszystkim, że ludzie nie mają za grosz kultury.',
+				't': 'Szukam innego miejsca. Długo opowiadam każdemu, jak ktoś bezczelnie ukradł mi miejsce.',
 				's': 3,
 			},
 		],
@@ -173,15 +173,15 @@ const QUESTIONS = [
 		'q': 'Kolega zmienia coś w projekcie i nagle wszystko przestaje działać.',
 		'a': [
 			{
-				't': 'Naprawiam problem i spokojnie tłumaczę mu, co poszło nie tak.',
+				't': 'Naprawiamy problem i sprawdzamy, co poszło nie tak.',
 				's': 0,
 			},
 			{
-				't': 'Naprawiam problem i wysyłam mu jedną ironiczną emotkę.',
+				't': 'Piszę mu, że po jego zmianie coś się wysypało, i proszę, żeby na to spojrzał.',
 				's': 1,
 			},
 			{
-				't': 'Pytam z ironią: "Sprawdzałeś to w ogóle przed zapisaniem?".',
+				't': 'Zadaje pytanie: "Testowałeś ten AI-slop w ogóle? Nie marnuj mojego czasu nieudaczniku.".',
 				's': 2,
 			},
 			{
@@ -194,15 +194,15 @@ const QUESTIONS = [
 		'q': 'W restauracji przynoszą ci zimne danie.',
 		'a': [
 			{
-				't': 'Spokojnie proszę o podgrzanie albo wymianę dania.',
+				't': 'Spokojnie proszę o podgrzanie albo wymianę.',
 				's': 0,
 			},
 			{
-				't': 'Proszę o podgrzanie i mówię, że danie powinno być ciepłe.',
+				't': 'Proszę o wymianę i komentuję, że danie powinno być ciepłe.',
 				's': 1,
 			},
 			{
-				't': 'Wypytuję kelnera, jak długo danie stało, zanim trafiło na mój stolik.',
+				't': 'Pytam, jak długo danie stało, zanim trafiło na mój stolik.',
 				's': 2,
 			},
 			{
@@ -212,43 +212,43 @@ const QUESTIONS = [
 		],
 	},
 	{
-		'q': 'Reklamy przed filmem na YouTube trwają dłużej niż sam film.',
+		'q': 'Czekasz u lekarza już 40 minut. Wizyta wciąż się nie zaczyna.',
 		'a': [
 			{
-				't': 'Czekam spokojnie. To tylko chwila.',
+				't': 'Pytam się kto jest ostatni, spokojnie czekam na swoją kolej.',
 				's': 0,
 			},
 			{
-				't': 'Klikam "Pomiń" od razu, gdy tylko pojawia się taka możliwość.',
+				't': 'Czekam, coraz częściej zerkając na zegarek.',
 				's': 1,
 			},
 			{
-				't': 'Wzdycham i po raz setny rozważam wykupienie Premium.',
+				't': 'Rozpoczynam dyskusje z innymi pacjentami, że tutaj zawsze tak jest.',
 				's': 2,
 			},
 			{
-				't': 'Wyłączam film i zaczynam narzekać, że YouTube stał się jedną wielką reklamą.',
+				't': 'Głośno mówię, że lekarze kompletnie nie szanują czasu pacjentów.',
 				's': 3,
 			},
 		],
 	},
 	{
-		'q': 'Ktoś wysyła zrzut ekranu z tekstem, zamiast wkleić sam tekst.',
+		'q': 'W markecie czynna jest tylko jedna kasa, a kolejka sięga do drzwi.',
 		'a': [
 			{
-				't': 'Odczytuję ze zrzutu to, czego potrzebuję, i nie zwracam na to uwagi.',
+				't': 'Staję w kolejce i pytam, czy można otworzyć drugą kasę.',
 				's': 0,
 			},
 			{
-				't': 'Ręcznie przepisuję potrzebny fragment i lekko się irytuję.',
+				't': 'Wzdycham i przeglądam telefon, czekając na swoją kolej.',
 				's': 1,
 			},
 			{
-				't': 'Proszę, żeby następnym razem wkleił tekst zamiast zdjęcia.',
+				't': 'Komentuję na głos, że przy kasie siedzi jedna osoba, a reszta pracowników chyba urządziła sobie sjestę na magazynie.',
 				's': 2,
 			},
 			{
-				't': 'Wysyłam mu zrzut ekranu jego wiadomości i pytam, czy teraz rozumie problem.',
+				't': 'Wdaje się w agresywną dyskusję z kasjerką, która po chwili odpowiada mi po ukraińsku. Nic z tego nie rozumiem, zirytowany zostawiam zakupy i wściekły wychodzę ze sklepu.',
 				's': 3,
 			},
 		],
@@ -257,40 +257,40 @@ const QUESTIONS = [
 		'q': 'Rachunek za prąd znowu jest wyższy niż wcześniej.',
 		'a': [
 			{
-				't': 'Płacę rachunek i nie robię z tego problemu.',
+				't': 'Porównuję rachunki i sprawdzam, skąd wynika różnica.',
 				's': 0,
 			},
 			{
-				't': 'Sprawdzam taryfę i porównuję rachunek z poprzednim.',
+				't': 'Sprawdzam, które urządzenia zużywają najwięcej prądu.',
 				's': 1,
 			},
 			{
-				't': 'Analizuję zużycie każdego urządzenia i szukam winowajcy.',
+				't': 'Narzekam domownikom, że nikt poza mną nie przejmuje się rachunkami.',
 				's': 2,
 			},
 			{
-				't': 'Składam reklamację, robię własne dochodzenie i zaczynam podejrzewać, że sąsiad podpiął się do mojego prądu.',
+				't': 'Przez następny tydzień wypominam każde zapalone światło i każdy nieużywany sprzęt zostawiony w kontakcie.',
 				's': 3,
 			},
 		],
 	},
 	{
-		'q': 'Podczas spotkania na Zoomie ktoś zapomina wyciszyć mikrofon.',
+		'q': 'Na rodzinnym obiedzie ktoś znowu pyta, kiedy w końcu się ustatkujesz.',
 		'a': [
 			{
-				't': 'Czekam chwilę, aż sam to zauważy.',
+				't': 'Mówię, że nie chcę o tym rozmawiać, i zmieniam temat.',
 				's': 0,
 			},
 			{
-				't': 'Piszę na czacie, że ma włączony mikrofon.',
+				't': 'Odpowiadam żartem, chociaż zaczyna mnie to irytować.',
 				's': 1,
 			},
 			{
-				't': 'Wzdycham i pytam, czy tak trudno pamiętać o wyciszeniu mikrofonu.',
+				't': 'Mówię poirytowanym tonem, że to nie jest niczyja sprawa.',
 				's': 2,
 			},
 			{
-				't': 'Proponuję przygotowanie obowiązkowej instrukcji obsługi Zooma dla całego zespołu.',
+				't': 'Robię z tego scenę i przypominam przy całym stole wszystkie poprzednie pytania tego typu.',
 				's': 3,
 			},
 		],
@@ -303,15 +303,15 @@ const QUESTIONS = [
 				's': 0,
 			},
 			{
-				't': 'Pukam w szybę z nadzieją, że ktoś jeszcze mnie wpuści.',
+				't': 'Pukam raz i pytam, czy da się jeszcze szybko coś kupić. Jeśli nie, odchodzę.',
 				's': 1,
 			},
 			{
-				't': 'Sprawdzam godziny otwarcia i narzekam, że zabrakło mi tylko dwóch minut.',
+				't': 'Stoję pod drzwiami i narzekam, że zabrakło mi dosłownie dwóch minut.',
 				's': 2,
 			},
 			{
-				't': 'Oburzam się, że nie mogli poczekać chwili dłużej, i opowiadam wszystkim o fatalnym podejściu do klienta.',
+				't': 'Opowiadam wszystkim, że obsługa widziała mnie pod drzwiami i nawet nie chciała podejść.',
 				's': 3,
 			},
 		],
@@ -320,61 +320,61 @@ const QUESTIONS = [
 		'q': 'Chatbot AI odpowiada z pełnym przekonaniem, ale zupełnie nie na temat.',
 		'a': [
 			{
-				't': 'Formułuję pytanie inaczej i spokojnie wyjaśniam, o co mi chodzi.',
+				't': 'Formułuję pytanie inaczej i próbuję ponownie.',
 				's': 0,
 			},
 			{
-				't': 'Wzdycham i próbuję jeszcze raz, tym razem bardziej precyzyjnie.',
+				't': 'Piszę: "Nie o to pytałem", i doprecyzowuję polecenie.',
 				's': 1,
 			},
 			{
-				't': 'Irytuję się i piszę, że znowu nie zrozumiał prostego pytania.',
+				't': 'Zaczynam mu tłumaczyć, dlaczego jego odpowiedź nie ma żadnego sensu.',
 				's': 2,
 			},
 			{
-				't': 'Wyzywam go od przygłupów, kończę konwersacje i idę po zimnego browara.',
+				't': 'Robię zrzut ekranu i wysyłam go znajomym jako kolejny dowód, że AI jest kompletnie bezużyteczne.',
 				's': 3,
 			},
 		],
 	},
 	{
-		'q': 'Ktoś pisze: "Wysłałem maila, sprawdź spam".',
+		'q': 'Masz już wyłożone zakupy na taśmie w Biedronce, ale kasjerka prosi, żebyś je zabrał i przeszedł do innej kasy, ponieważ musi iść do toalety. Gdy odpowiadasz: "Mogę poczekać", słyszysz, że nie ma takiej możliwości.',
 		'a': [
 			{
-				't': 'Sprawdzam folder ze spamem. Faktycznie tam był.',
+				't': 'Wkładam produkty z powrotem do koszyka i przechodzę do innej kasy.',
 				's': 0,
 			},
 			{
-				't': 'Sprawdzam spam i lekko się irytuję.',
+				't': 'Mówię: "Ale przecież może pani zaciągnąć sznurek przy kasie, żeby nikt nie przeszedł i zaraz tutaj wrócić".',
 				's': 1,
 			},
 			{
-				't': 'Narzekam, że ważne wiadomości zawsze trafiają nie tam, gdzie powinny.',
+				't': 'Komentuję, że większość pracowników opierdziela się na magazynie, a robić to nie ma komu. 2 kasy otwarte, a powinny być 3!',
 				's': 2,
 			},
 			{
-				't': 'Zgłaszam sprawę do działu IT i żądam wyjaśnienia, dlaczego poczta znowu nie działa jak należy.',
+				't': 'Odmawiam zabrania produktów, wdaję się w kłótnię i żądam rozmowy z kierownikiem, ponieważ nie będę drugi raz stać w kolejce.',
 				's': 3,
 			},
 		],
 	},
 	{
-		'q': 'Wi-Fi w kawiarni wymaga podania numeru telefonu i zaakceptowania regulaminu.',
+		'q': 'Ktoś zajmuje sprzęt na siłowni i zamiast ćwiczyć, od dłuższej chwili scrolluje telefon.',
 		'a': [
 			{
-				't': 'Rejestruję się i korzystam z internetu.',
+				't': 'Pytam, czy możemy ćwiczyć na zmianę.',
 				's': 0,
 			},
 			{
-				't': 'Wypełniam formularz, lekko przy tym wzdychając.',
+				't': 'Robię inne ćwiczenie i wracam za kilka minut.',
 				's': 1,
 			},
 			{
-				't': 'Narzekam, że nawet do zwykłego Wi-Fi trzeba podawać swoje dane.',
+				't': 'Pytam: "Ty w ogóle ćwiczysz czy tylko udajesz, że ćwiczysz?".',
 				's': 2,
 			},
 			{
-				't': 'Włączam własny internet i głośno komentuję, że kawiarnia pewnie chce sprzedać mój numer reklamodawcom.',
+				't': 'Zaczynam głośno komentować, że niektórzy przychodzą na siłownię tylko po to, żeby zajmować sprzęt.',
 				's': 3,
 			},
 		],
@@ -391,11 +391,11 @@ const QUESTIONS = [
 				's': 1,
 			},
 			{
-				't': 'Obserwuję kolejkę i zastanawiam się, ile osób weszło po znajomości.',
+				't': 'Liczę z osobami, ile okienek jest pustych, i komentujemy tempo obsługi.',
 				's': 2,
 			},
 			{
-				't': 'Na miejscu piszę skargę do kierownika i głośno komentuję, że w tym urzędzie nic nigdy nie działa.',
+				't': 'Składam skargę, a po wyjściu jeszcze długo opowiadam, że w tym urzędzie nic nigdy nie działa.',
 				's': 3,
 			},
 		],
@@ -404,11 +404,11 @@ const QUESTIONS = [
 		'q': 'Dyskusja na czacie trwa już czwartą godzinę, a ktoś wciąż pisze: "Odwracasz kota ogonem".',
 		'a': [
 			{
-				't': 'Wychodzę z rozmowy. Każda dyskusja ma swoje granice.',
+				't': 'Wychodzę z rozmowy. Dalej już nic z tego nie będzie.',
 				's': 0,
 			},
 			{
-				't': 'Czytam kolejne wiadomości z lekkim rozbawieniem.',
+				't': 'Piszę ostatnią odpowiedź i wyciszam czat.',
 				's': 1,
 			},
 			{

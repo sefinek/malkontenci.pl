@@ -1,6 +1,6 @@
 {
   "name": "malkontenci.pl",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "homepage": "https://malkontenci.pl",
   "bugs": {
     "url": "https://github.com/sefinek/malkontenci.pl/issues"
@@ -27,7 +27,7 @@
     "express-session": "^1.19.0",
     "express-timeout-handler": "^2.2.2",
     "helmet": "^8.3.0",
-    "mongoose": "^9.7.4",
+    "mongoose": "^9.8.0",
     "morgan": "^1.11.0",
     "redis": "^6.1.0",
     "sharp": "^0.35.3"
