@@ -80,7 +80,7 @@
       <h1>Jak mamy się do Ciebie zwracać?</h1>
       <p>Podaj swoje imię lub nazwę użytkownika. Informacja ta posłuży do wygenerowania certyfikatu (obraz jpg). W ostateczności wystawiamy również skierowanie do Choroszczy. Podana nazwa zostanie zapamiętana w tej przeglądarce i krótkotrwałej sesji serwera. Nie podawaj tutaj swoich danych osobowych. Powodzenia!</p>
       <input type="text" id="nick-input" placeholder="np. HiVeR" maxlength="24">
-      <div id="turnstile-widget" class="turnstile-widget" data-sitekey="<%= turnstileSiteKey %>"></div>
+      <div id="turnstile-widget" class="turnstile-widget" data-sitekey="<%= process.env.TURNSTILE_SITE_KEY %>"></div>
       <p id="turnstile-error" class="turnstile-error hidden"></p>
       <div class="modal-actions">
         <a href="/" class="btn-ghost">Anuluj</a>

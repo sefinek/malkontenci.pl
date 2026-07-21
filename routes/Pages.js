@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const TestResult = require('../database/models/testResult.model.js');
-const { SITE_KEY: TURNSTILE_SITE_KEY } = require('../utils/turnstile.js');
 
 const encodeName = value => Buffer.from(value, 'utf-8').toString('base64url');
 
@@ -19,7 +18,7 @@ router.get('/', async (req, res) => {
 	res.render('index.ejs', { dla, hasStats, encodeName });
 });
 
-router.get('/test', (req, res) => res.render('test.ejs', { turnstileSiteKey: TURNSTILE_SITE_KEY }));
+router.get('/test', (req, res) => res.render('test.ejs'));
 router.get('/moje-certyfikaty', (req, res) => res.render('certificates.ejs'));
 router.get('/statystyki', (req, res) => res.render('stats.ejs'));
 router.get('/uznania', (req, res) => res.render('credits.ejs'));
