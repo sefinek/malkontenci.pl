@@ -177,7 +177,7 @@ header {
 }
 
 .hero {
-  max-width: 1500px;
+  max-width: 1550px;
   margin: 0 auto;
   padding: 7vh 48px 60px;
   display: grid;
@@ -197,8 +197,8 @@ header {
 }
 
 .hero-copy p.sub {
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.6;
   color: #7a746e;
   margin: 0 0 12px;
 }
@@ -297,12 +297,12 @@ a.nav-link:hover {
 }
 
 .hero-card-kicker {
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: #8a3835;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .hero-card-ticket {
@@ -492,12 +492,16 @@ input[type="text"] {
 }
 
 .section.centered .section-note {
-  max-width: 640px;
+  max-width: 750px;
   margin: 0 auto;
 }
 
 .section.centered .card-grid {
   margin-top: 34px;
+  text-align: left;
+}
+
+.section.centered .symptom-box {
   text-align: left;
 }
 
@@ -705,7 +709,7 @@ input[type="text"] {
 }
 
 .cta-section {
-  max-width: 850px;
+  max-width: 1000px;
   margin: 100px auto 0;
   padding: 0 32px 20px;
   text-align: center;
@@ -1273,6 +1277,7 @@ footer {
   margin-top: 34px;
   color: #6f6963;
   font-size: 11px;
+  text-align: right;
 }
 
 .modal-overlay {

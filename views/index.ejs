@@ -9,16 +9,25 @@
 <main>
   <section class="hero">
     <div class="hero-copy">
+
       <% if (dla) { %>
         <h1>Wygląda na to, że <%= dla %><br>jest malkontentem</h1>
         <p class="sub">
-          Podobno przechodzisz ostatnio trudny okres. Odpowiedz na serię krótkich pytań. Spróbujemy cię wyleczyć.
-          Doskonale cię rozumiemy <%= dla %>, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.
+          Podobno przechodzisz ostatnio trudny okres. Odpowiedz na serię krótkich pytań, a spróbujemy cię wyleczyć.
+          Doskonale cię rozumiemy, że takie nędzne życie może być frustrujące. Na szczęście przygotowaliśmy odpowiednią procedurę.
+          Badanie jest szczególnie zalecane użytkownikom Wykopu, Reddita oraz innych forów internetowych.
+          Polecamy je również osobom z Discorda, które przesiadują głównie na serwerach poświęconych Linuxowi.
         </p>
       <% } else { %>
         <h1>Wygląda na to, że jesteś malkontentem</h1>
-        <p class="sub">Przejdź test, a następnie spróbujemy cię wyleczyć. Rozumiemy, że takie życie może być frustrujące. Na szczęście mamy przygotowaną procedurę.</p>
+        <p class="sub">
+          Odpowiedz na serię krótkich pytań, a spróbujemy cię wyleczyć.
+          Rozumiemy, że takie życie może być frustrujące. Na szczęście przygotowaliśmy odpowiednią procedurę.
+          Badanie jest szczególnie zalecane użytkownikom Wykopu, Reddita oraz innych forów internetowych.
+          Polecamy je również osobom z Discorda, które przesiadują głównie na serwerach poświęconych Linuxowi.
+        </p>
       <% } %>
+
       <a id="start-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeName(dla)}` : '' %>">Rozpocznij diagnozę</a>
 
       <div class="share-box">
@@ -36,6 +45,7 @@
         <div class="hero-card-kicker">Karta zgłoszenia</div>
         <div class="hero-card-ticket">#<span id="ticket-number"></span></div>
         <div class="hero-card-facts">
+          <% if (dla) { %><div>Pacjent: <span><%= dla %></span></div><% } %>
           <div>Status: <span>niepokojący</span></div>
           <div>Diagnoz do wyboru: <span>5</span></div>
           <div>Pytań w badaniu: <span>20</span></div>
@@ -69,13 +79,13 @@
       <div class="definition-term">malkontent <span class="pos">rzeczownik, rodzaj męski</span></div>
       <div class="definition-pron">[mal-kon-tent], od francuskiego malcontent: "niezadowolony", choć u nas raczej "permanentnie rozczarowany rzeczywistością".</div>
       <div class="definition-body">
-        <p>Malkontent nie narzeka. Prowadzi bieżącą kontrolę jakości rzeczywistości i odnotowuje każdą wykrytą usterkę. Zwykle głośno, kilkukrotnie i w obecności osób, które nie miały z nią nic wspólnego.</p>
+        <p>Malkontent nie narzeka. Prowadzi bieżącą kontrolę jakości rzeczywistości i odnotowuje każdą wykrytą usterkę. Gdy widzi coś nowego, ostro to krytykuje. Zwykle głośno i kilkukrotnie.</p>
         <p>Malkontent zawsze znajdzie powód do narzekania. Jak nie ceny, to pogoda. Jak nie pogoda, to ludzie. A kiedy ktoś proponuje rozwiązanie, ono też okazuje się złe. Tacy ludzie zwykle źle znoszą również krytykę. Uwielbiają być cudzymi mentorami.</p>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section centered wide">
     <span class="section-kicker">Typowe zachowania</span>
     <div class="symptom-box">
       <div class="symptom-grid">
@@ -102,8 +112,8 @@
         <div class="stat-label">badanych uważa swoje narzekanie za realizm</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value">4,7</div>
-        <div class="stat-label">rzeczy dziennie, które kiedyś były lepsze</div>
+        <div class="stat-value">74%</div>
+        <div class="stat-label">pacjentów posiada depresję lub aspergera</div>
       </div>
       <div class="stat-card">
         <div class="stat-value">81%</div>
@@ -122,8 +132,8 @@
   </section>
 
   <section class="quote-section">
-    <div class="quote-text">"Mogłeś podać innego malkontenta, ale przypier... się akurat do mnie. Teraz udajesz, że to był tylko przykład. Kończę tę dyskusję, bo do niczego nie prowadzi. Miłego dnia."</div>
-    <div class="quote-author">relacja anonimowego pacjenta, który niestety nadal jest malkontentem</div>
+    <div class="quote-text">"Mogłeś podać innego malkontenta, ale przypier...... się akurat do mnie. Teraz udajesz, że to był tylko przykład. Kończę tę dyskusję, bo do niczego nie prowadzi. Miłego dnia."</div>
+    <div class="quote-author">~ Relacja anonimowego pacjenta, który niestety nadal jest malkontentem.</div>
   </section>
 
   <section class="section proof">
@@ -149,9 +159,9 @@
       </div>
       <div class="support-card">
         <div class="support-kicker">Poradnia stacjonarna</div>
-        <div class="support-title">DPS "Pod Zrzędliwym Bocianem"</div>
-        <div class="support-meta">oddział dla malkontentów, Bydgoszcz</div>
-        <p class="support-body">Całodobowa opieka nad osobami, którym od lat nic nie odpowiada. Pensjonariusze wspólnie oceniają posiłki, pogodę, personel i siebie nawzajem. Terapia kończy się, gdy pacjent przez cały dzień nie zgłosi żadnej uwagi. Dotychczas nie odnotowano takiego przypadku.</p>
+        <div class="support-title">DPS "Pod Zrzędliwym Knurem"</div>
+        <div class="support-meta">Bydgoszcz, Polska · oddział dla malkontentów</div>
+        <p class="support-body">Całodobowa opieka nad osobami, którym od lat nic nie odpowiada. Pensjonariusze wspólnie oceniają posiłki, pogodę, personel. Co najlepsze, także i siebie nawzajem. Terapia kończy się, gdy pacjent przez cały dzień nie zgłosi żadnej uwagi. Dotychczas nie odnotowano takiego przypadku.</p>
       </div>
     </div>
     <div class="support-footnote">Jeżeli obie grupy odmówią dalszej współpracy, wystawimy skierowanie do placówki partnerskiej w Choroszczy. Prosimy o natychmiastowy kontakt, ponieważ miejsca są ograniczone.</div>
@@ -159,7 +169,7 @@
 
   <section class="cta-section">
     <h3>Nadal uważasz, że problem dotyczy innych?</h3>
-    <p>To typowe. Test zajmie około 4 minut i da ci wynik, z którym prawdopodobnie również się nie zgodzisz.</p>
+    <p>To typowe u malkontentów. Test zajmie około 4 minut i da ci wynik, z którym prawdopodobnie również się nie zgodzisz.</p>
     <a id="cta-btn" class="btn-primary" href="/test<%= dla ? `?dla=${encodeName(dla)}` : '' %>">Rozpocznij badanie</a>
   </section>
 </main>
