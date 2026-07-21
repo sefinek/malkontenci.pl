@@ -181,7 +181,7 @@ const QUESTIONS = [
 				's': 1,
 			},
 			{
-				't': 'Zadaje pytanie: "Testowałeś ten AI-slop w ogóle? Nie marnuj mojego czasu nieudaczniku.".',
+				't': 'Zadaję pytanie: "Testowałeś ten AI-slop w ogóle? Nie marnuj mojego czasu nieudaczniku.".',
 				's': 2,
 			},
 			{
@@ -248,7 +248,7 @@ const QUESTIONS = [
 				's': 2,
 			},
 			{
-				't': 'Wdaje się w agresywną dyskusję z kasjerką, która po chwili odpowiada mi po ukraińsku. Nic z tego nie rozumiem, zirytowany zostawiam zakupy i wściekły wychodzę ze sklepu.',
+				't': 'Wdaję się w agresywną dyskusję z kasjerką, która po chwili odpowiada mi po ukraińsku. Nic z tego nie rozumiem, zirytowany zostawiam zakupy i wściekły wychodzę ze sklepu.',
 				's': 3,
 			},
 		],
@@ -391,7 +391,7 @@ const QUESTIONS = [
 				's': 1,
 			},
 			{
-				't': 'Liczę z osobami, ile okienek jest pustych, i komentujemy tempo obsługi.',
+				't': 'Liczę, ile okienek jest pustych, komentuję tempo obsługi na głos.',
 				's': 2,
 			},
 			{
