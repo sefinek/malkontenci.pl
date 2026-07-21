@@ -37,7 +37,7 @@
 	<meta name="twitter:image:alt" content="Logo malkontenci.pl">
 
 	<!-- JavaScript -->
-	<script src="https://cdn.sefinek.net/js/progressbar.js"></script>
+	<script src="https://cdn.sefinek.net/js/progressbar.js" defer></script>
 
 	<!-- Stylesheets -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,7 +59,7 @@
 	</script><% } %>
 </head>
 <body data-page="<%= locals.page || '' %>">
-<audio id="bg-music" src="/sound/oblivion-harvest-dawn.mp3" autoplay muted preload="auto"></audio>
+<audio id="bg-music" src="/sound/oblivion-harvest-dawn.mp3" autoplay muted preload="none"></audio>
 
 <header>
 	<a id="logo" class="logo" href="/" aria-label="Malkontenci.pl - strona główna"><img class="logo-icon" src="/images/brand/icon.svg" alt="" width="42" height="42">MALKONTENCI<span>.PL</span></a>

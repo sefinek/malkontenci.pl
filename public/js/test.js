@@ -1,7 +1,5 @@
 (() => {
 	const PROGRESS_KEY = 'postep';
-	const CERT_STORAGE_KEY = 'certyfikaty';
-	const MAX_SAVED_CERTS = 12;
 	const MAX_SCORE = 100;
 
 	let QUESTIONS = [];
@@ -184,34 +182,8 @@
 		return answers;
 	};
 
-	const loadCertificates = () => {
-		try {
-			const raw = localStorage.getItem(CERT_STORAGE_KEY);
-			const list = raw ? JSON.parse(raw) : [];
-			return Array.isArray(list) ? list : [];
-		} catch {
-			return [];
-		}
-	};
-
-	const saveCertificates = certs => {
-		let list = loadCertificates();
-		list.push(...certs);
-		if (list.length > MAX_SAVED_CERTS) list = list.slice(list.length - MAX_SAVED_CERTS);
-
-		while (list.length) {
-			try {
-				localStorage.setItem(CERT_STORAGE_KEY, JSON.stringify(list));
-				return;
-			} catch (err) {
-				if (err.name !== 'QuotaExceededError' && err.name !== 'NS_ERROR_DOM_QUOTA_REACHED') return;
-				list.shift();
-			}
-		}
-	};
-
 	const loadLatestCertificate = () => {
-		const list = loadCertificates();
+		const list = window.CertStore.load();
 		const certificate = list.slice().reverse().find(item => (
 			item && typeof item.id === 'string' && typeof item.image === 'string' &&
 			item.image.startsWith('data:image/jpeg;base64,') &&
@@ -421,7 +393,7 @@
 					});
 				}
 
-				saveCertificates(newCerts);
+				window.CertStore.append(newCerts);
 			}
 			try { sessionStorage.removeItem(PROGRESS_KEY); } catch { /* ... */ }
 		} catch {

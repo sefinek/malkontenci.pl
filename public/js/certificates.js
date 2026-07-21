@@ -1,22 +1,4 @@
 (() => {
-	const STORAGE_KEY = 'certyfikaty';
-
-	const loadCertificates = () => {
-		try {
-			const raw = localStorage.getItem(STORAGE_KEY);
-			const list = raw ? JSON.parse(raw) : [];
-			return Array.isArray(list) ? list : [];
-		} catch {
-			return [];
-		}
-	};
-
-	const saveCertificates = list => {
-		try {
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-		} catch { /* ... */ }
-	};
-
 	const formatDate = iso => {
 		try {
 			return new Date(iso).toLocaleString('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -38,7 +20,7 @@
 	const render = () => {
 		const grid = document.getElementById('certs-grid');
 		const empty = document.getElementById('certs-empty');
-		const list = loadCertificates().slice().reverse();
+		const list = window.CertStore.load().slice().reverse();
 
 		grid.innerHTML = '';
 		empty.classList.toggle('hidden', list.length > 0);
@@ -81,7 +63,7 @@
 			delBtn.className = 'btn-ghost';
 			delBtn.textContent = 'Usuń';
 			delBtn.addEventListener('click', () => {
-				saveCertificates(loadCertificates().filter(c => c.id !== cert.id));
+				window.CertStore.save(window.CertStore.load().filter(c => c.id !== cert.id));
 				render();
 			});
 			actions.appendChild(delBtn);

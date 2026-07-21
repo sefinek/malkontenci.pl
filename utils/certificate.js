@@ -234,6 +234,29 @@ const makeLayout = (startY = 90) => {
 	return { place, advance, items: layout, get y() { return y; } };
 };
 
+const placeCorners = (lay, cornerNo, cornerCopy, top, marginX) => {
+	lay.items.push(
+		{ input: cornerNo.buf, top, left: marginX },
+		{ input: cornerCopy.buf, top, left: WIDTH - marginX - cornerCopy.w }
+	);
+};
+
+const signatureLineSvg = (x, width, y, color) => `<line x1="${x}" y1="${y}" x2="${x + width}" y2="${y}" stroke="${color}" stroke-width="1.5"/>`;
+
+const composeWatermark = (watermark, cardH) => ({
+	input: watermark.buf,
+	top: Math.round((cardH - watermark.h) / 2) - 40,
+	left: Math.round((WIDTH - watermark.w) / 2),
+});
+
+const JPEG_OPTIONS = { quality: 90, chromaSubsampling: '4:4:4' };
+
+const finalizeDocument = ({ background, lines, watermark, cardH, items, flattenBackground }) => sharp(background).composite([
+	composeWatermark(watermark, cardH),
+	{ input: lines, top: 0, left: 0 },
+	...items,
+]).flatten({ background: flattenBackground }).jpeg(JPEG_OPTIONS).toBuffer();
+
 const generateCertificate = async ({ nickname, ticketNumber, score, arch }) => {
 	const total = Math.max(0, Math.min(MAX_SCORE, score));
 	const nick = nickname || 'Anonimowy Malkontent';
@@ -280,10 +303,9 @@ const generateCertificate = async ({ nickname, ticketNumber, score, arch }) => {
 	lay.items.push(
 		{ input: sigPatient.buf, top: sigY + 16, left: Math.round(sigLeftX + (SIG_W - sigPatient.w) / 2) },
 		{ input: sigDoctor.buf, top: sigY + 16, left: Math.round(sigRightX + (SIG_W - sigDoctor.w) / 2) },
-		{ input: seal, top: sigY - 180, left: sigRightX + 50 },
-		{ input: cornerNo.buf, top: 50, left: 54 },
-		{ input: cornerCopy.buf, top: 50, left: WIDTH - 54 - cornerCopy.w }
+		{ input: seal, top: sigY - 180, left: sigRightX + 50 }
 	);
+	placeCorners(lay, cornerNo, cornerCopy, 50, 54);
 	lay.advance(16 + sigDoctor.h + 72);
 	lay.place(finePrint, 10);
 	lay.place(footer, 0);
@@ -312,17 +334,13 @@ const generateCertificate = async ({ nickname, ticketNumber, score, arch }) => {
 
 	const lines = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${cardH}">
 		<line x1="${PAD_X}" y1="${dividerY}" x2="${WIDTH - PAD_X}" y2="${dividerY}" stroke="${COLORS.divider}" stroke-width="2" stroke-dasharray="8 8"/>
-		<line x1="${sigLeftX}" y1="${sigY}" x2="${sigLeftX + SIG_W}" y2="${sigY}" stroke="${COLORS.ink}" stroke-width="1.5"/>
-		<line x1="${sigRightX}" y1="${sigY}" x2="${sigRightX + SIG_W}" y2="${sigY}" stroke="${COLORS.ink}" stroke-width="1.5"/>
+		${signatureLineSvg(sigLeftX, SIG_W, sigY, COLORS.ink)}
+		${signatureLineSvg(sigRightX, SIG_W, sigY, COLORS.ink)}
 		${drawSignature(sigRightX + 45, sigY, COLORS.pen)}
 		${drawPatientScrawl(sigLeftX + 70, sigY, COLORS.pen)}
 	</svg>`);
 
-	return sharp(background).composite([
-		{ input: watermark.buf, top: Math.round((cardH - watermark.h) / 2) - 40, left: Math.round((WIDTH - watermark.w) / 2) },
-		{ input: lines, top: 0, left: 0 },
-		...lay.items,
-	]).flatten({ background: COLORS.pageEdge }).jpeg({ quality: 95, chromaSubsampling: '4:4:4' }).toBuffer();
+	return finalizeDocument({ background, lines, watermark, cardH, items: lay.items, flattenBackground: COLORS.pageEdge });
 };
 
 const generateReferral = async ({ nickname, ticketNumber }) => {
@@ -372,10 +390,9 @@ const generateReferral = async ({ nickname, ticketNumber }) => {
 	const sigRightX = WIDTH - PAD_X - SIG_W;
 	lay.items.push(
 		{ input: sigDoctor.buf, top: sigY + 16, left: Math.round(sigRightX + (SIG_W - sigDoctor.w) / 2) },
-		{ input: seal, top: sigY - 180, left: sigRightX + 50 },
-		{ input: cornerNo.buf, top: 48, left: 56 },
-		{ input: cornerCopy.buf, top: 48, left: WIDTH - 56 - cornerCopy.w }
+		{ input: seal, top: sigY - 180, left: sigRightX + 50 }
 	);
+	placeCorners(lay, cornerNo, cornerCopy, 48, 56);
 	lay.advance(16 + sigDoctor.h + 72);
 	lay.place(finePrint, 10);
 	lay.place(footer, 0);
@@ -395,15 +412,11 @@ const generateReferral = async ({ nickname, ticketNumber }) => {
 	</svg>`);
 
 	const lines = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${cardH}">
-		<line x1="${sigRightX}" y1="${sigY}" x2="${sigRightX + SIG_W}" y2="${sigY}" stroke="${REFERRAL_COLORS.ink}" stroke-width="1.5"/>
+		${signatureLineSvg(sigRightX, SIG_W, sigY, REFERRAL_COLORS.ink)}
 		${drawSignature(sigRightX + 45, sigY, REFERRAL_COLORS.pen)}
 	</svg>`);
 
-	return sharp(background).composite([
-		{ input: watermark.buf, top: Math.round((cardH - watermark.h) / 2) - 40, left: Math.round((WIDTH - watermark.w) / 2) },
-		{ input: lines, top: 0, left: 0 },
-		...lay.items,
-	]).flatten({ background: REFERRAL_COLORS.paperTop }).jpeg({ quality: 95, chromaSubsampling: '4:4:4' }).toBuffer();
+	return finalizeDocument({ background, lines, watermark, cardH, items: lay.items, flattenBackground: REFERRAL_COLORS.paperTop });
 };
 
 module.exports = { generateCertificate, generateReferral };

@@ -115,6 +115,7 @@
 				loadedScripts.add(s.src);
 				const el = document.createElement('script');
 				el.src = s.src;
+				el.async = false;
 				el.onload = resolve;
 				el.onerror = () => {
 					loadedScripts.delete(s.src);

@@ -52,4 +52,4 @@ const getArchetype = total => {
 };
 const ARCHETYPE_TITLES = ARCHETYPES.map(a => a.title);
 
-module.exports = { MAX_SCORE, ARCHETYPE_TITLES, getArchetype };
+module.exports = { MAX_SCORE, ARCHETYPES, ARCHETYPE_TITLES, getArchetype };
