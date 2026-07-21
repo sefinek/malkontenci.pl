@@ -34,7 +34,7 @@ const QUESTIONS = [
 				's': 1,
 			},
 			{
-				't': 'Wale kijem od miotły w sufit przeklinając przy tym. Jeśli nie pomaga, dobijam się do niego pod drzwiami.',
+				't': 'Walę kijem od miotły w sufit przeklinając. Jeśli to nie pomaga, dobijam się do niego pod jego drzwiami.',
 				's': 2,
 			},
 			{
