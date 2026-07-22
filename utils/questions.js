@@ -194,7 +194,7 @@ const QUESTIONS = [
 		'q': 'W restauracji przynoszą ci zimne danie.',
 		'a': [
 			{
-				't': 'Spokojnie proszę o podgrzanie albo wymianę.',
+				't': 'Jem zimne, ponieważ mam pręta w mózgu i boję się zwrócić uwagę kelnerowi.',
 				's': 0,
 			},
 			{
@@ -206,7 +206,7 @@ const QUESTIONS = [
 				's': 2,
 			},
 			{
-				't': 'Robię awanturę, żądam rozmowy z kierownikiem i piszę szczegółową recenzję na kilku portalach.',
+				't': 'Robię awanturę, żądam rozmowy z kierownikiem i się żale na Wykopie.',
 				's': 3,
 			},
 		],
