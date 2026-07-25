@@ -51,11 +51,11 @@ const QUESTIONS = [
 				's': 0,
 			},
 			{
-				't': 'Wyłączam aktualizacje na kolejne 7 dni, żeby Windows więcej mnie nie zaskoczył.',
+				't': 'Przeklinam pod nosem i liczę, że wszystko się zapisało.',
 				's': 1,
 			},
 			{
-				't': 'Przeklinam pod nosem i liczę, że wszystko się zapisało.',
+				't': 'Wyłączam aktualizacje na kolejne 7 dni, żeby Windows więcej mnie nie zaskoczył.',
 				's': 2,
 			},
 			{
@@ -160,11 +160,11 @@ const QUESTIONS = [
 				's': 1,
 			},
 			{
-				't': 'Wysiadam i mówię mu, co o tym myślę, używając przy tym wulgarnych słów.',
+				't': 'Szukam innego miejsca. Długo opowiadam każdemu, jak ktoś bezczelnie ukradł mi miejsce.',
 				's': 2,
 			},
 			{
-				't': 'Szukam innego miejsca. Długo opowiadam każdemu, jak ktoś bezczelnie ukradł mi miejsce.',
+				't': 'Wysiadam i mówię mu, co o tym myślę, używając przy tym wulgarnych słów.',
 				's': 3,
 			},
 		],
