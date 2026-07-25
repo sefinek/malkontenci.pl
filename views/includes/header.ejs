@@ -46,17 +46,37 @@
 	<link rel="stylesheet" href="/css/global.css">
 	<% if (locals.css) { (Array.isArray(css) ? css : [css]).forEach(c => { %><link rel="stylesheet" href="/css/<%= c %>.css" data-page-css><% }) } %>
 
-	<% if (_basePath === '/') { %><!-- schema.org -->
+	<!-- schema.org -->
 	<script type="application/ld+json" data-seo>
-	{
-		"@context": "https://schema.org",
-		"@type": "WebSite",
-		"name": "malkontenci.pl",
-		"url": "<%= domain %>",
-		"description": "Test diagnostyczny sprawdzający, czy jesteś malkontentem. Po ukończeniu testu otrzymasz także certyfikat. Krajowa Poradnia Antyfrustracyjna pozdrawia.",
-		"inLanguage": "pl-PL"
-	}
-	</script><% } %>
+	<%- JSON.stringify({
+		'@context': 'https://schema.org',
+		'@graph': [
+			{
+				'@type': 'Organization',
+				'@id': `${domain}/#organization`,
+				name: 'malkontenci.pl',
+				url: `${domain}/`,
+				sameAs: ['https://github.com/sefinek/malkontenci.pl'],
+			},
+			{
+				'@type': 'WebSite',
+				'@id': `${domain}/#website`,
+				name: 'malkontenci.pl',
+				url: `${domain}/`,
+				description: 'Test diagnostyczny sprawdzający, czy jesteś malkontentem. Po ukończeniu testu otrzymasz także certyfikat. Krajowa Poradnia Antyfrustracyjna pozdrawia.',
+				inLanguage: 'pl-PL',
+				publisher: { '@id': `${domain}/#organization` },
+			},
+			{
+				'@type': 'BreadcrumbList',
+				itemListElement: [
+					{ '@type': 'ListItem', position: 1, name: 'Strona główna', item: `${domain}/` },
+					...(_basePath !== '/' ? [{ '@type': 'ListItem', position: 2, name: title, item: `${domain}${_basePath}` }] : []),
+				],
+			},
+		],
+	}) %>
+	</script>
 </head>
 <body data-page="<%= locals.page || '' %>">
 <audio id="bg-music" src="/sound/oblivion-harvest-dawn.mp3" autoplay muted preload="none"></audio>

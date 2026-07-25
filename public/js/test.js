@@ -545,7 +545,7 @@
 	const copyResult = () => {
 		const nick = state.nickname || 'Anonimowy Malkontent';
 		const title = state.resultTitle || 'Malkontent';
-		const text = `${nick} zdiagnozowany jako: ${title} (${state.resultScore}/${MAX_SCORE} pkt frustracji) | Krajowa Poradnia Antyfrustracyjna - https://malkontenci.pl`;
+		const text = `${nick} zdiagnozowany jako: ${title} (${state.resultScore}/${MAX_SCORE} pkt frustracji) | Krajowa Poradnia Antyfrustracyjna - ${location.origin}`;
 		if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => undefined);
 
 		els.copyBtn.textContent = 'Skopiowano';

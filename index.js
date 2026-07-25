@@ -21,8 +21,8 @@ const app = express();
 // Configure the app
 if (isProd) app.set('trust proxy', 1);
 app.set('view engine', 'ejs');
-app.locals.domain = DOMAIN;
-app.locals.version = version;
+app.locals.domain = `${process.env.DOMAIN}${isProd ? '' : `:${process.env.PORT}`}`;
+app.locals.v = version;
 
 // Use middlewares
 app.use(helmet({
