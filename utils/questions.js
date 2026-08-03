@@ -345,7 +345,7 @@ const QUESTIONS = [
 				's': 0,
 			},
 			{
-				't': 'Mówię: "Ale przecież może pani zaciągnąć sznurek przy kasie, żeby nikt nie przeszedł i zaraz tutaj wrócić".',
+				't': 'Mówię: "Ale przecież może pani zablokować kasę i zaciągnąć sznurek, następnie zaraz tutaj wrócić".',
 				's': 1,
 			},
 			{
