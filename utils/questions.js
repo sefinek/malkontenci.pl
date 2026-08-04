@@ -359,7 +359,7 @@ const QUESTIONS = [
 		],
 	},
 	{
-		'q': 'Ktoś zajmuje sprzęt na siłowni i zamiast ćwiczyć, od dłuższej chwili scrolluje telefon.',
+		'q': 'Ktoś zajmuje sprzęt na siłowni i zamiast ćwiczyć, od dłuższej chwili siedzi na telefonie.',
 		'a': [
 			{
 				't': 'Pytam, czy możemy ćwiczyć na zmianę.',
