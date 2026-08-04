@@ -10,10 +10,10 @@
 
 .stats-chart-block {
   margin-top: 48px;
+  padding: 32px 36px;
   border: 1px solid #2e2a28;
   border-radius: 12px;
   background: #1d1b19;
-  padding: 32px 36px;
 }
 
 .stats-chart-block h2 {
@@ -31,25 +31,25 @@
 }
 
 .stats-bar {
-  flex: 1 1 0;
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   min-width: 4px;
+  height: 100%;
 }
 
 .stats-bar-track {
-  flex: 1;
   display: flex;
+  flex: 1;
   align-items: flex-end;
   width: 100%;
 }
 
 .stats-bar-fill {
   width: 100%;
-  background: #b3453f;
   border-radius: 3px 3px 0 0;
+  background: #b3453f;
   transition: background .2s ease;
 }
 
@@ -60,9 +60,9 @@
 .stats-bar-label {
   height: 10px;
   margin-top: 8px;
+  color: #6f6963;
   font-size: 10px;
   line-height: 10px;
-  color: #6f6963;
   white-space: nowrap;
 }
 
@@ -74,33 +74,33 @@
 
 .archetype-row {
   display: grid;
-  grid-template-columns: 200px 1fr 140px;
   align-items: center;
   gap: 16px;
+  grid-template-columns: 200px 1fr 140px;
 }
 
 .archetype-title {
-  font-size: 14px;
   color: #c4beb6;
+  font-size: 14px;
 }
 
 .archetype-track {
+  overflow: hidden;
   height: 10px;
   border-radius: 999px;
   background: #2e2a28;
-  overflow: hidden;
 }
 
 .archetype-fill {
   height: 100%;
-  background: #b3453f;
   border-radius: 999px;
+  background: #b3453f;
   transition: width .3s ease;
 }
 
 .archetype-meta {
-  font-size: 13px;
   color: #8f8983;
+  font-size: 13px;
   text-align: right;
 }
 
@@ -117,8 +117,8 @@
   }
 
   .archetype-row {
-    grid-template-columns: 1fr;
     gap: 8px;
+    grid-template-columns: 1fr;
   }
 
   .archetype-meta {
