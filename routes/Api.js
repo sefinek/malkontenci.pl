@@ -46,7 +46,12 @@ const verifyTurnstile = async (token, ip) => {
 	if (typeof token !== 'string' || !token) return false;
 
 	try {
-		const { data } = await axios.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', new URLSearchParams({ secret: process.env.TURNSTILE_SECRET_KEY, response: token, remoteip: ip }));
+		const { data } = await axios.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', new URLSearchParams({
+			secret: process.env.TURNSTILE_SECRET,
+			response: token,
+			remoteip: ip,
+		}));
+
 		if (data.success !== true) {
 			const errors = Array.isArray(data['error-codes']) ? data['error-codes'] : [];
 			console.warn('[turnstile] validation failed:', errors.join(', ') || 'unknown-error');

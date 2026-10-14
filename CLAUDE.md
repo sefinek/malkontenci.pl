@@ -13,7 +13,7 @@ malkontenci.pl — a Polish-language comedic "Are you a malcontent?" personality
 - `node database/syncIndexes.js` — connects to MongoDB, loads every model in `database/models/`, diffs and syncs their indexes (prints what would be dropped/created). Requires `MONGODB_URL` in `.env`.
 - `node services/IndexNow.js` — parses `public/sitemap.xml` and submits all URLs to the IndexNow API in batches of 10,000, using the key file at `public/<key>.txt`. Not part of normal dev workflow; run manually for SEO submissions.
 - `npm run m` — bumps all deps with `ncu -u` then installs/updates. `npm run update` — pulls main, `npm ci --omit=dev`, restarts the `mki` PM2 process (production deploy path, see `ecosystem.config.js`).
-- Required `.env` vars are documented in `.env.example`: `MONGODB_URL`, `REDIS_HOST`/`REDIS_PASSWD`, `SESSION_SECRET`, `TURNSTILE_SITE_KEY`/`TURNSTILE_SECRET_KEY`, `DOMAIN`, `PORT`, `NODE_ENV`.
+- Required `.env` vars are documented in `.env.example`: `MONGODB_URL`, `REDIS_HOST`/`REDIS_PASSWD`, `SESSION_SECRET`, `TURNSTILE_SITEKEY`/`TURNSTILE_SECRET`, `DOMAIN`, `PORT`, `NODE_ENV`.
 
 ## Architecture
 
